@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Merged Session - QA/QC Agent System</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+  <style>
+    body{font-family:Inter,Segoe UI,Arial,sans-serif;max-width:1100px;margin:30px auto;padding:0 16px;background:#0b1020;color:#e7eeff;line-height:1.6}
+    h1,h2{color:#fff}
+    .card{background:#121a31;border:1px solid #263557;border-radius:12px;padding:14px;margin:12px 0}
+    a{color:#8ab4ff}
+    ul{margin-top:6px}
+  </style>
+</head>
+<body>
+  <h1>Merged Session Documentation + Diagram Library</h1>
+  <p>This page merges the previous Letta 3-agent conversation with the current Hermes session outcomes, using <b>Mermaid</b> for diagrams.</p>
+
+  <div class="card">
+    <h2>Scope Merged</h2>
+    <ul>
+      <li>Letta conversation: QA/QC Manager 3-agent model (Spec/Submittal, Document Generation, Reporting/Performance)</li>
+      <li>Current Hermes session: phase-based structure, Aconex-style workflow, WBS real-time readiness, GitHub Pages publication</li>
+      <li>Infra outcomes: memory backend, search providers, GitHub integration</li>
+    </ul>
+  </div>
+
+  <h2>1) Agent System Diagram (Mermaid)</h2>
+  <pre class="mermaid">
+flowchart TD
+    A[Project/Phase Start] --> B[Agent 2: Document Generation]
+    B --> B1[QMP/QCP/ITP/Checklists]
+    B1 --> C[Agent 1: Spec & Submittal Review]
+    C --> C1[Standards + Code + Spec Compliance]
+    C1 --> D{Submission Decision}
+    D -->|Approved| E[Installation / Field Execution]
+    D -->|Revise & Resubmit| C
+    E --> F[Agent 1: Pre/During/Post Test Verification]
+    F --> G{Pass/Fail}
+    G -->|Pass| H[Agent 3: Reporting & KPI]
+    G -->|Fail| I[NCR + Corrective Action]
+    I --> F
+    H --> J[Executive Dashboard + Red Flags + RCA]
+  </pre>
+
+  <h2>2) Phase-Gate Workflow (Mermaid)</h2>
+  <pre class="mermaid">
+flowchart LR
+  P0[Earthwork] --> P1[Shell & Core] --> P2[Fitout] --> P3[Snag/De-snag] --> P4[Test & Commissioning] --> P5[Handover]
+
+  D1[Document Gate] --> F1[Field Gate] --> T1[Test Gate] --> C1[Compliance Gate] --> R1[Reporting Gate]
+
+  P0 -.each phase uses.-> D1
+  P1 -.each phase uses.-> D1
+  P2 -.each phase uses.-> D1
+  P3 -.each phase uses.-> D1
+  P4 -.each phase uses.-> D1
+  P5 -.each phase uses.-> D1
+  </pre>
+
+  <h2>3) Aconex-Style Approval Routing (Mermaid)</h2>
+  <pre class="mermaid">
+sequenceDiagram
+    participant C as Contractor/Subcontractor
+    participant DG as DocuGate
+    participant Q as QAQC Lead
+    participant D as Discipline Lead
+    participant K as Consultant
+    participant FF as FieldFlow
+    participant IC as InsightCore
+
+    C->>DG: Submit package (MS/MIR/ITP/Test Cert/Shop Drawing)
+    DG->>Q: Route review
+    DG->>D: Route review
+    DG->>K: Route review
+    Q-->>DG: Comments
+    D-->>DG: Comments
+    K-->>DG: Comments
+    DG-->>C: Consolidated decision
+    alt Approved
+      DG->>FF: Trigger inspection checklist
+      FF->>FF: Pre/During/Post + Hold/Witness
+      FF-->>IC: Results + NCRs + closeout
+      IC-->>Q: KPI + Red Flag + RCA report
+    else Revise & Resubmit
+      C->>DG: Resubmission
+    end
+  </pre>
+
+  <div class="card">
+    <h2>4) Key Consolidated Decisions</h2>
+    <ul>
+      <li>Oracle Aconex-like workflow adopted</li>
+      <li>Phase/WBS aligned release control required (cannot-start if document gate fails)</li>
+      <li>Inspection model: pre/during/post + tolerance + embedded MEP integration</li>
+      <li>Executive reporting: KPI, red flags, root-cause analysis</li>
+    </ul>
+  </div>
+
+  <p><a href="./">← Back to Home</a></p>
+</body>
+</html>
