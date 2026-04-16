@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QAQC Agent Operating System - Session Documentation</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a31;
+      --muted: #93a0c0;
+      --text: #e8edff;
+      --accent: #6ea8fe;
+      --ok: #46d39a;
+      --warn: #ffca6b;
+      --border: #243154;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11,16,32,.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+    .topbar { display: flex; gap: 18px; align-items: center; justify-content: space-between; padding: 12px 0; }
+    .brand { font-weight: 700; letter-spacing: .2px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 14px;
+      font-size: 14px;
+    }
+    nav a:hover { color: var(--accent); }
+    main { padding: 28px 0 70px; }
+    h1 { font-size: 34px; line-height: 1.2; margin: 10px 0 8px; }
+    h2 { margin-top: 34px; border-top: 1px solid var(--border); padding-top: 24px; }
+    h3 { margin-top: 18px; }
+    p, li { color: #dbe5ff; }
+    .lead { color: var(--muted); max-width: 900px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .pill { display:inline-block; border:1px solid var(--border); border-radius:999px; padding:2px 9px; color:var(--muted); font-size:12px; margin-right:6px; }
+    code {
+      background: #0d152c;
+      border: 1px solid var(--border);
+      color: #cfe1ff;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th { color: #cfe1ff; background: #101a34; }
+    .ok { color: var(--ok); font-weight: 600; }
+    .warn { color: var(--warn); font-weight: 600; }
+    .muted { color: var(--muted); }
+    footer { margin-top: 34px; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container topbar">
+    <div class="brand">QAQC Agent OS - Session Document</div>
+    <nav>
+      <a href="#overview">Overview</a>
+      <a href="#infra">Infra Setup</a>
+      <a href="#agent-matrix">Agent Matrix</a>
+      <a href="#phases">Phase Workflow</a>
+      <a href="#submission">Submission Model</a>
+      <a href="#aconex">Aconex-Style Flow</a>
+      <a href="#publishing">Publishing</a>
+      <a href="session-merged.html">Merged Diagram Doc</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section id="overview">
+    <h1>Full Session Documentation (English)</h1>
+    <p class="lead">
+      This document captures the complete working outcomes of this session: Hermes memory/backend setup, search provider activation,
+      GitHub integration, and the construction QA/QC multi-agent operating model designed for luxury hotel, residence, and villa projects.
+    </p>
+    <div>
+      <span class="pill">Domain: Construction QA/QC</span>
+      <span class="pill">Style: Oracle Aconex-like Workflow</span>
+      <span class="pill">Scope: End-to-End Document + Field + Reporting</span>
+    </div>
+  </section>
+
+  <section id="infra">
+    <h2>1) Session Infrastructure and Tooling Setup</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Hermes Memory Backend</h3>
+        <ul>
+          <li>Memory provider switched from built-in only to <code>hindsight</code>.</li>
+          <li>Configured endpoint: <code>https://api.hindsight.vectorize.io</code>.</li>
+          <li>Status validated as <span class="ok">available</span>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Search Providers</h3>
+        <ul>
+          <li>Exa API key configured and validated.</li>
+          <li>Tavily API key configured and validated.</li>
+          <li>Construction-spec research tests executed successfully.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>GitHub Integration</h3>
+        <ul>
+          <li>Git credentials configured for GitHub access.</li>
+          <li>GitHub account connectivity validated (<code>dbartan</code>).</li>
+          <li>Global Git email set to preferred value.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="agent-matrix">
+    <h2>2) QAQC Multi-Agent Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Core Responsibility</th>
+          <th>Primary Inputs</th>
+          <th>Primary Outputs</th>
+          <th>Control Objective</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>DocuGate</b></td>
+          <td>Document control, submission review, compliance routing</td>
+          <td>Specs, codes, QMP/QCP, ITP, method statements, certificates, shop drawings</td>
+          <td>Approved / Revise & Resubmit / Rejected decisions + comments + revision trail</td>
+          <td>Prevent non-compliant documents from reaching field execution</td>
+        </tr>
+        <tr>
+          <td><b>FieldFlow</b></td>
+          <td>Installation inspection and test readiness</td>
+          <td>Approved technical docs, ITP logic, tolerance thresholds, embedded-item data</td>
+          <td>Pre/During/Post checklists, hold points, NCRs, reinspection records</td>
+          <td>Ensure first-time-right execution in real site conditions</td>
+        </tr>
+        <tr>
+          <td><b>PhaseSync</b></td>
+          <td>WBS + phase-gate + real-time readiness tracking</td>
+          <td>Program activities, document status, inspection/test closure status</td>
+          <td>Cannot-start flags, readiness score, delay impact alerts</td>
+          <td>Enforce schedule-to-approval alignment</td>
+        </tr>
+        <tr>
+          <td><b>InsightCore</b></td>
+          <td>Executive reporting, red flags, RCA, subcontractor performance</td>
+          <td>Logs from DocuGate + FieldFlow + PhaseSync</td>
+          <td>KPI dashboards, root cause analysis, management summaries</td>
+          <td>Convert QA/QC data into decisions</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="phases">
+    <h2>3) Phase-Based Operating Structure</h2>
+    <p>Project lifecycle aligned to real field sequence:</p>
+    <ol>
+      <li><b>Earthwork</b></li>
+      <li><b>Shell & Core</b></li>
+      <li><b>Fitout</b></li>
+      <li><b>Snag / De-snag</b></li>
+      <li><b>Test & Commissioning</b></li>
+      <li><b>Handover & Closeout</b></li>
+    </ol>
+    <p>Each phase uses the same gate pattern:</p>
+    <p><code>Document Gate -> Field Gate -> Test Gate -> Compliance Gate -> Reporting Gate</code></p>
+    <p class="warn">Rule: No phase/activity release if critical gate criteria are not closed.</p>
+  </section>
+
+  <section id="submission">
+    <h2>4) Submission List and Control Schema</h2>
+    <p>Submission register must include mandatory fields for auditability and real-time traceability:</p>
+    <ul>
+      <li>Submission ID, Phase, WBS Code, Area/Zone, Discipline</li>
+      <li>Document Type (Material / Method Statement / ITP / Test Certificate / Shop Drawing)</li>
+      <li>Spec Ref / Code Ref / Revision</li>
+      <li>Planned Submit Date / Required Approval Date</li>
+      <li>Status + Reviewer Route + Consolidated Comments</li>
+      <li>Linked Inspection Template + Linked Activity ID</li>
+      <li>Final Disposition + Effective Release Tag</li>
+    </ul>
+    <p>Revision governance: latest approved revision controls field release; superseded revisions are locked from use.</p>
+  </section>
+
+  <section id="aconex">
+    <h2>5) Oracle Aconex-Style Workflow Logic</h2>
+    <ol>
+      <li>Contractor submits package</li>
+      <li>Auto-classification by phase/discipline/spec/WBS</li>
+      <li>Parallel routing: QAQC + Discipline Lead + Consultant</li>
+      <li>Comment consolidation and formal return</li>
+      <li>Resubmission cycle (if required)</li>
+      <li>Final disposition and release control</li>
+      <li>Field checklist auto-trigger from approved docs</li>
+      <li>Inspection/test execution + witness/hold handling</li>
+      <li>NCR and corrective action loop</li>
+      <li>KPI + red-flag + RCA escalation to management</li>
+    </ol>
+  </section>
+
+  <section id="publishing">
+    <h2>6) Publishing Status</h2>
+    <div class="card">
+      <ul>
+        <li>Repository: <a href="https://github.com/dbartan/qaqc-agent-playbook">dbartan/qaqc-agent-playbook</a></li>
+        <li>GitHub Pages: <a href="https://dbartan.github.io/qaqc-agent-playbook/">https://dbartan.github.io/qaqc-agent-playbook/</a></li>
+        <li>Current mode: GitHub Pages from <code>main</code> branch root.</li>
+      </ul>
+      <p class="muted">Next optional step: map custom domain (e.g., deryabartan.com) with DNS and CNAME.</p>
+    </div>
+  </section>
+
+  <footer>
+    Session-built document. Focus: construction QA/QC agentization, phase compliance, document governance, and executive control.
+  </footer>
+</main>
+</body>
+</html>
