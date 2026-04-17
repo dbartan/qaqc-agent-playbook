@@ -1,0 +1,15 @@
+phase,sequence_no,trade,work_item,status,why_critical,linked_submission_category,recommended_doc_code
+P01 Earthwork,EW-005,MEP/Civil,Underground services as-built capture before backfill,Added,Prevents hidden service conflicts and rework,DOC,DOC-EW-001
+P02 Shell&Core,SC-004,Architectural,Masonry trade sequence controls,Added,Often omitted in structure-centric plans,MS,MS-SC-002
+P02 Shell&Core,SC-005,MEP/Civil,Builder's work and embedded items coordination,Added,Avoids post-pour core cutting and NCR,ITP,ITP-SC-002
+P02 Shell&Core,SC-006,Facade,Facade embeds and anchors early controls,Added,High impact on facade geometry/tolerance,MS,MS-SC-003
+P03 Fitout,FO-001,Architectural,Mockup room and sample board approval gate,Added,Brand/luxury quality baseline,DOC,DOC-FO-001
+P03 Fitout,FO-002,Architectural,Gypsum partition/ceiling sequence,Added,Frequent coordination and closure failure,MS,MS-FO-001
+P03 Fitout,FO-003,Architectural,Stone/tile dry-lay approvals,Added,Luxury finish alignment and tone control,DOC,DOC-FO-002
+P03 Fitout,FO-006,MEP,Kitchen utility/drainage and grease tests,Added,Hotel BOH operational risk,TEST,TST-FO-003
+P03 Fitout,FO-007,Firestopping,Shaft/riser firestopping closure checks,Added,Life safety and authority approvals,ITP,ITP-FO-001
+P03 Fitout,FO-008,Architectural,Special finishes sequence controls,Added,High defect risk in luxury public areas,MS,MS-FO-002
+P05 Test&Commissioning,TC-004,Life Safety,Fire alarm cause-and-effect integrated test,Added,Critical for life safety approvals,TEST,TST-TC-002
+P05 Test&Commissioning,TC-005,Electrical,Emergency power and load shedding scenarios,Added,Operational resilience requirement,TEST,TST-TC-003
+P05 Test&Commissioning,TC-006,ELV/BMS,ELV integration test sequence,Added,Interface issues usually discovered late,TEST,TST-TC-004
+P06 Handover,HD-005,FM/Asset,Asset register + CMMS import delivery,Added,Operations transition dependency,DOC,HDO-005

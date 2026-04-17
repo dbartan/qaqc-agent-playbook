@@ -1,21 +1,39 @@
-section,check_item,required,notes
-Method Statement,Scope area and WBS clearly defined,Yes,
-Method Statement,Spec and code clause references included,Yes,
-Method Statement,Linked ITP and hold witness points defined,Yes,
-Method Statement,Risk and HSE controls aligned with quality controls,Yes,
-Method Statement,Prerequisite approvals identified shop drawing MIR permits,Yes,
-MIR,Technical datasheet TDS and SDS submitted,Yes,
-MIR,Compliance certificates ASTM BS EN UL attached,Yes,
-MIR,Approved manufacturer vendor list compliance verified,Yes,
-MIR,Sample or mockup requirement closed where needed,Yes,
-MIR,Document numbering revision and traceability correct,Yes,
-Testing,Test standard clearly defined,Yes,
-Testing,Acceptance criteria measurable and numeric,Yes,
-Testing,Sampling frequency and lot plan approved,Yes,
-Testing,Lab accreditation ISO 17025 verified,Yes,
-Testing,Instrument calibration certificates in date,Yes,
-Closeout,Signed IR ITR records complete,Yes,
-Closeout,NCR CAPA and retest evidence attached where applicable,Yes,
-Closeout,As-built O&M and handover dossier updated,Yes,
-Closeout,Any gate blocker open item flagged for escalation,Yes,
-Decision,Disposition assigned A B C D with comments,Yes,A Approved B Approved with comments C Revise and Resubmit D Rejected
+project,phase,section,check_item,required,reference,gate,criticality,evidence_required,notes
+Luxury Hotel QAQC,P01 Earthwork,Method Statement,Scope area and WBS clearly defined,Yes,Project QA Plan,G1,H,Approved MS, 
+Luxury Hotel QAQC,P01 Earthwork,Method Statement,Spec and code clause references included,Yes,Contract Spec,G1,H,Referenced clauses, 
+Luxury Hotel QAQC,P01 Earthwork,ITP,Linked ITP and hold witness points defined,Yes,ITP Procedure,G2,H,Approved ITP, 
+Luxury Hotel QAQC,P01 Earthwork,Pre-Inspection,Control points and benchmarks verified,Yes,Survey Spec,G3,H,Signed survey record,Commonly missed
+Luxury Hotel QAQC,P01 Earthwork,Pre-Inspection,Prerequisite approvals identified (SD/MIR/permits),Yes,Submission Matrix,G3,H,Approval log, 
+Luxury Hotel QAQC,P01 Earthwork,MIR,Technical datasheet and certificates submitted,Yes,Material Spec,G1,H,TDS + COC/COA, 
+Luxury Hotel QAQC,P01 Earthwork,Testing,Test standard and acceptance criteria numeric,Yes,ASTM/BS EN,G4,H,Test plan + criteria, 
+Luxury Hotel QAQC,P01 Earthwork,Testing,Sampling frequency and lot plan approved,Yes,ITP,G4,M,Lot sampling plan, 
+Luxury Hotel QAQC,P01 Earthwork,Closeout,Underground services captured before backfill,Yes,As-built Procedure,G3,H,Marked-up as-built,Hotel utility risk
+Luxury Hotel QAQC,P02 Shell&Core,Method Statement,Pre-pour method statement approved,Yes,Concrete Spec,G1,H,Approved MS, 
+Luxury Hotel QAQC,P02 Shell&Core,ITP,Pre-pour hold point checklist signed,Yes,Concrete ITP,G2,H,Signed checklist, 
+Luxury Hotel QAQC,P02 Shell&Core,Interface,Builder's work and MEP sleeves coordinated,Yes,Coordination Drawings,G2,H,Interface checklist,Major rework preventer
+Luxury Hotel QAQC,P02 Shell&Core,MIR,Rebar/coupler approvals and traceability verified,Yes,Rebar Spec,G1,H,Mill cert + approval, 
+Luxury Hotel QAQC,P02 Shell&Core,Testing,Concrete tests and tolerance surveys complete,Yes,ASTM + Project Spec,G4,H,Test reports + survey, 
+Luxury Hotel QAQC,P02 Shell&Core,Trade Control,Masonry method and inspection controls approved,Yes,Masonry Spec,G1,M,Approved MS/ITP,Often missed trade
+Luxury Hotel QAQC,P02 Shell&Core,Facade Interface,Facade embed/anchor controls approved early,Yes,Facade Spec,G3,H,Embed approval records,Luxury facade risk
+Luxury Hotel QAQC,P03 Fitout,Mockup,Mockup room and sample boards approved,Yes,Brand/Project Standards,G3,H,Signed mockup approvals,Hotel critical
+Luxury Hotel QAQC,P03 Fitout,Method Statement,Gypsum ceiling/partition sequence approved,Yes,Finishes Spec,G1,H,Approved MS,Missing in prior version
+Luxury Hotel QAQC,P03 Fitout,Method Statement,Special finishes installation controls approved,Yes,Finishes Spec,G1,H,Approved MS + mockups,Luxury quality driver
+Luxury Hotel QAQC,P03 Fitout,Pre-Closure,Concealed MEP pre-close tests complete,Yes,MEP Specs,G4,H,Signed test records,Must before closure
+Luxury Hotel QAQC,P03 Fitout,Pre-Closure,Shaft/riser firestopping verified before closure,Yes,Firestop Spec,G2,H,Inspection records,Often forgotten
+Luxury Hotel QAQC,P03 Fitout,Wet Areas,Waterproofing flood test passed,Yes,Wet Area Spec,G4,H,Flood test report, 
+Luxury Hotel QAQC,P03 Fitout,BOH,Kitchen utility and drainage tests accepted,Yes,Public Health Spec,G4,H,Test reports,Hotel BOH critical
+Luxury Hotel QAQC,P04 Snag,Closeout,Snag severity matrix and SLA applied,Yes,Snag Procedure,G3,M,Snag register, 
+Luxury Hotel QAQC,P04 Snag,Closeout,Reinspection completed and evidence attached,Yes,QA Plan,G4,H,Closure inspection records, 
+Luxury Hotel QAQC,P04 Snag,NCR/CAPA,NCR CAPA and retest evidence complete where applicable,Yes,NCR Procedure,G5,H,NCR closure pack, 
+Luxury Hotel QAQC,P05 Test&Commissioning,Method Statement,System-wise commissioning MS approved,Yes,Cx Spec,G1,H,Approved MS, 
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing,Instrument calibration certificates in date,Yes,ISO 9001 7.1.5,G1,H,Calibration certs, 
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing,TAB and FPT acceptance achieved,Yes,ASHRAE/NEBB,G4,H,TAB/FPT reports, 
+Luxury Hotel QAQC,P05 Test&Commissioning,Integrated Testing,Fire alarm cause-effect and life safety integration passed,Yes,NFPA/Local Fire Code,G4,H,IST records,Hotel life safety critical
+Luxury Hotel QAQC,P05 Test&Commissioning,Integrated Testing,Emergency power failover and load shedding tested,Yes,Electrical Spec,G4,H,Test reports, 
+Luxury Hotel QAQC,P05 Test&Commissioning,Integrated Testing,ELV and BMS interfaces tested and signed,Yes,ELV Spec,G4,M,Interface test sheets,Often late issue
+Luxury Hotel QAQC,P06 Handover,Handover,As-built register complete and approved,Yes,Handover Procedure,G5,H,Approved as-built register, 
+Luxury Hotel QAQC,P06 Handover,Handover,O&M and systems manual complete and indexed,Yes,O&M Spec,G5,H,Manual transmittal, 
+Luxury Hotel QAQC,P06 Handover,Handover,Training attendance and competency records complete,Yes,Training Plan,G5,M,Signed training records, 
+Luxury Hotel QAQC,P06 Handover,Handover,Warranty and spare parts register accepted,Yes,Contract Requirements,G5,M,Warranty matrix + spare list, 
+Luxury Hotel QAQC,P06 Handover,Handover,Asset register and CMMS import delivered,Yes,FM Requirements,G5,H,CMMS file + asset tags,Commonly forgotten
+Luxury Hotel QAQC,All Phases,Decision,Disposition assigned A/B/C/D/E with comments,Yes,Review Workflow,All,H,Disposition log,A=Approved B=Approved with comments C=Revise&Resubmit D=Rejected E=On Hold

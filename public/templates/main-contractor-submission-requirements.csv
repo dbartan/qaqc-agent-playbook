@@ -1,20 +1,32 @@
-package,required_document,mandatory,stage,remarks
-Method Statement Package,Method Statement,Yes,Pre-Execution,Activity specific and approved before start
-Method Statement Package,Inspection and Test Plan ITP,Yes,Pre-Execution,Must include hold witness review points
-Method Statement Package,Risk Assessment and HSE Controls,Yes,Pre-Execution,Aligned with method statement and quality controls
-Method Statement Package,Inspection Checklists,Yes,Pre-Execution,Pre during post checklists as applicable
-Method Statement Package,Responsibility Matrix,Yes,Pre-Execution,Defines contractor subcontractor QAQC signatories
-Material Approval Package,Material Technical Datasheet,Yes,Pre-Procurement,Manufacturer original data
-Material Approval Package,Compliance Certificates ASTM BS EN UL,Yes,Pre-Procurement,As applicable to product and project spec
-Material Approval Package,Third-party Test Reports,Yes,Pre-Procurement,From approved/accredited labs where required
-Material Approval Package,Manufacturer Installation Guidelines,Yes,Pre-Procurement,Latest revision
-Material Approval Package,Samples Mockups,Conditional,Pre-Installation,Mandatory for architectural critical finishes
-Test Package,Approved Test Plan,Yes,Pre-Test,Aligned with ITP and project specification
-Test Package,Test Forms and Templates,Yes,Pre-Test,Controlled format and revision
-Test Package,Calibration Certificates,Yes,Pre-Test,Valid and traceable
-Test Package,Witness Request Plan,Yes,Pre-Test,Consultant/client witness as required
-Test Package,Acceptance Limit Sheet,Yes,Pre-Test,Numeric acceptance limits only
-Closeout Package,Signed IR and ITR Records,Yes,Post-Execution,Full traceability by area and activity
-Closeout Package,Final Test Reports,Yes,Post-Execution,All required tests completed and accepted
-Closeout Package,NCR CAPA Closure Evidence,Conditional,Post-Execution,Mandatory where NCR exists
-Closeout Package,As-built Markups and Turnover Records,Yes,Pre-Handover,Linked to handover dossier
+project,phase,package,required_document,submission_category,mandatory,contractual_due_days_before_work,long_lead_flag,procurement_trigger_date,linked_shop_drawing,linked_method_statement,linked_itp,linked_mir,risk_if_delayed,stage,responsible_org,reviewer,review_status,gate,remarks
+Luxury Hotel QAQC,P01 Earthwork,Method Statement Package,Excavation and Shoring Method Statement,MS,Yes,14,No,,Yes,Yes,Yes,No,H,Pre-Execution,Main Contractor,QAQC Manager,,G1,
+Luxury Hotel QAQC,P01 Earthwork,Method Statement Package,Backfilling and Compaction Method Statement,MS,Yes,10,No,,Yes,Yes,Yes,No,M,Pre-Execution,Main Contractor,QAQC Manager,,G1,
+Luxury Hotel QAQC,P01 Earthwork,Material Approval Package,Backfill Material Approval with Test Certificates,MIR,Yes,14,No,,No,No,No,Yes,H,Pre-Procurement,Main Contractor,QAQC Manager,,G1,
+Luxury Hotel QAQC,P01 Earthwork,Inspection Package,Earthworks ITP with Hold/Witness Points,ITP,Yes,10,No,,Yes,Yes,Yes,Yes,H,Pre-Execution,Main Contractor,QAQC + Consultant,,G2,
+Luxury Hotel QAQC,P01 Earthwork,Closeout Package,Underground Services As-Built Before Backfill,DOC,Yes,2,No,,Yes,No,No,No,H,Post-Execution,MEP Contractor,QAQC + Consultant,,G3,Commonly missed
+Luxury Hotel QAQC,P02 Shell&Core,Method Statement Package,Concrete Formwork/Rebar/Pour Method Statement,MS,Yes,14,No,,Yes,Yes,Yes,No,H,Pre-Execution,Main Contractor,QAQC Manager,,G1,
+Luxury Hotel QAQC,P02 Shell&Core,Material Approval Package,Rebar/Coupler/Cementitious Material Approvals,MIR,Yes,21,Yes,,No,No,No,Yes,H,Pre-Procurement,Main Contractor,QAQC Manager,,G1,
+Luxury Hotel QAQC,P02 Shell&Core,Inspection Package,Concrete Structural ITP incl. Pre-pour Checklist,ITP,Yes,10,No,,Yes,Yes,Yes,Yes,H,Pre-Execution,Main Contractor,QAQC + Consultant,,G2,
+Luxury Hotel QAQC,P02 Shell&Core,Inspection Package,Builder's Work and Embedded Item Coordination ITP,ITP,Yes,10,No,,Yes,Yes,Yes,No,H,Pre-Execution,Main + MEP Contractor,QAQC + Consultant,,G2,Prevents rework
+Luxury Hotel QAQC,P02 Shell&Core,Method Statement Package,Masonry Installation Method Statement,MS,Yes,10,No,,Yes,Yes,Yes,No,M,Pre-Execution,Main Contractor,QAQC Manager,,G1,Added missing trade
+Luxury Hotel QAQC,P02 Shell&Core,Method Statement Package,Facade Embed/Anchor Method Statement,MS,Yes,21,Yes,,Yes,Yes,Yes,No,H,Pre-Execution,Facade Contractor,QAQC + Consultant,,G3,Hotel tower critical
+Luxury Hotel QAQC,P03 Fitout,Pre-Execution Package,Guestroom Mockup and Sample Board Approval,DOC,Yes,21,No,,Yes,No,No,No,H,Pre-Execution,Main Contractor,Consultant + Client,,G3,Brand critical
+Luxury Hotel QAQC,P03 Fitout,Method Statement Package,Drywall and Gypsum Ceiling Method Statement,MS,Yes,10,No,,Yes,Yes,Yes,No,H,Pre-Execution,Main Contractor,QAQC Manager,,G1,Added missing trade
+Luxury Hotel QAQC,P03 Fitout,Method Statement Package,Special Finishes Method Statement (Stone/Wood/Metal),MS,Yes,14,Yes,,Yes,Yes,Yes,No,H,Pre-Execution,Main Contractor,QAQC Manager,,G1,Luxury finish risk
+Luxury Hotel QAQC,P03 Fitout,Inspection Package,Wet Area Waterproofing ITP and Flood Test Plan,ITP,Yes,10,No,,Yes,Yes,Yes,Yes,H,Pre-Execution,Main Contractor,QAQC + Consultant,,G2,
+Luxury Hotel QAQC,P03 Fitout,Inspection Package,Concealed MEP Pre-Close Test and Inspection Pack,TEST,Yes,5,No,,Yes,Yes,Yes,Yes,H,Pre-Closure,MEP Contractor,QAQC + Consultant,,G4,
+Luxury Hotel QAQC,P03 Fitout,Inspection Package,Shaft/Riser Firestopping Closure Inspections,ITP,Yes,5,No,,Yes,Yes,Yes,No,H,Pre-Closure,Main Contractor,QAQC + Consultant,,G2,Often missed
+Luxury Hotel QAQC,P03 Fitout,Testing Package,Kitchen Utility/Drainage/Grease Testing,TEST,Yes,5,No,,No,Yes,Yes,Yes,H,Pre-Closure,MEP Contractor,QAQC + Consultant,,G4,Hotel BOH critical
+Luxury Hotel QAQC,P04 Snag,Closeout Package,Snag Register with Severity and SLA,DOC,Yes,3,No,,No,No,No,No,M,Post-Execution,Main Contractor,QAQC Manager,,G3,
+Luxury Hotel QAQC,P04 Snag,Closeout Package,NCR/CAPA Closure Evidence and Reinspection,TEST,Conditional,2,No,,No,No,No,No,H,Post-Execution,Main Contractor,QAQC + Consultant,,G4,
+Luxury Hotel QAQC,P05 Test&Commissioning,Method Statement Package,System-wise Commissioning Method Statement,MS,Yes,14,No,,Yes,Yes,Yes,No,H,Pre-Execution,Commissioning Team,QAQC Manager,,G1,
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing Package,Calibration Certificates for Test Instruments,MIR,Yes,3,No,,No,No,No,Yes,H,Pre-Test,Commissioning Team,QAQC Manager,,G1,ISO 9001 linked
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing Package,TAB + Functional Performance Test Records,TEST,Yes,2,No,,No,Yes,Yes,No,H,Execution,Commissioning Team,QAQC + Consultant,,G4,
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing Package,Fire Alarm Cause&Effect Integrated Test,TEST,Yes,5,No,,No,Yes,Yes,No,H,Execution,Commissioning Team,QAQC + AHJ,,G4,Life safety
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing Package,Emergency Power/ATS/Load Shedding Test,TEST,Yes,5,No,,No,Yes,Yes,No,H,Execution,Commissioning Team,QAQC + Consultant,,G4,
+Luxury Hotel QAQC,P05 Test&Commissioning,Testing Package,ELV Interface and Integration Test Records,TEST,Yes,5,No,,No,Yes,Yes,No,M,Execution,ELV Contractor,QAQC + Operator,,G4,
+Luxury Hotel QAQC,P06 Handover,Handover Package,Approved As-Built Drawing Register,DOC,Yes,14,No,,Yes,No,No,No,H,Pre-Handover,Main Contractor,QAQC + Consultant,,G5,
+Luxury Hotel QAQC,P06 Handover,Handover Package,O&M Manuals and Systems Manual,DOC,Yes,14,No,,Yes,No,No,No,H,Pre-Handover,Main Contractor,QAQC + Client,,G5,
+Luxury Hotel QAQC,P06 Handover,Handover Package,Training Plan + Attendance + Competency Records,DOC,Yes,7,No,,No,No,No,No,M,Pre-Handover,Main Contractor,QAQC + Operator,,G5,
+Luxury Hotel QAQC,P06 Handover,Handover Package,Warranty Matrix + Spare Parts Register,DOC,Yes,7,No,,No,No,No,No,M,Pre-Handover,Main Contractor,QAQC + Client,,G5,
+Luxury Hotel QAQC,P06 Handover,Handover Package,Asset Register + CMMS Upload Template,DOC,Yes,7,No,,No,No,No,No,H,Pre-Handover,Main Contractor,QAQC + FM,,G5,Commonly missed
