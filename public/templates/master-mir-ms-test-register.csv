@@ -1,0 +1,22 @@
+phase,discipline,trade,category,document_code,document_title,mandatory,reference_standard,acceptance_basis,submission_timing,responsible,reviewer,gate
+P01 Earthwork,Civil,Earthworks,MS,MS-EW-001,Excavation and Shoring Method Statement,Yes,Project Spec + Local Code,Approved MS before work start,Before activity,Main Contractor,QAQC Manager,G1
+P01 Earthwork,Civil,Earthworks,MS,MS-EW-002,Backfilling and Compaction Method Statement,Yes,ASTM/BS EN + Spec,Approved MS + ITP,Before activity,Main Contractor,QAQC Manager,G1
+P01 Earthwork,Civil,Earthworks,MIR,MIR-EW-001,Backfill Material Approval,Yes,ASTM D698/D1557,Approved source + test cert,Before delivery,Main Contractor,QAQC Manager,G1
+P01 Earthwork,Civil,Survey,TEST,TST-EW-001,Field Density Compaction Test,Yes,ASTM D1556/D6938,Minimum compaction per spec,During work,Lab + Contractor,QAQC + Consultant,G4
+P01 Earthwork,Civil,Survey,TEST,TST-EW-002,Formation Level Survey Verification,Yes,Project Survey Spec,Within tolerance limits,Post activity,Surveyor,QAQC + Consultant,G4
+P02 ShellCore,Structural,Concrete,MS,MS-SC-001,Formwork and Falsework Method Statement,Yes,ACI/BS EN,Pre-pour approval,Before pour,Main Contractor,QAQC Manager,G1
+P02 ShellCore,Structural,Rebar,MIR,MIR-SC-001,Rebar and Coupler Approval,Yes,ASTM A615/A706,Mill cert + 3rd party tests,Before installation,Main Contractor,QAQC Manager,G1
+P02 ShellCore,Structural,Concrete,TEST,TST-SC-001,Concrete Slump and Cube Tests,Yes,ASTM C143/C39,Strength class per spec,Each pour,Lab + Contractor,QAQC + Consultant,G4
+P02 ShellCore,Structural,Concrete,TEST,TST-SC-002,Concrete Cover and Plumbness Survey,Yes,Project Spec + BS 5606,Within tolerance limits,Post pour,Surveyor + QAQC,Consultant,G4
+P03 Fitout,Architectural,Wet Areas,MS,MS-FO-001,Wet Area Waterproofing and Tiling MS,Yes,Project Spec + BS/EN,Flood test pass criteria,Before activity,Main Contractor,QAQC Manager,G1
+P03 Fitout,Architectural,Finishes,MIR,MIR-FO-001,Tile Adhesive Grout Sealant Approval,Yes,EN/ASTM + Manufacturer Data,Approved TDS + certs,Before procurement,Main Contractor,QAQC Manager,G1
+P03 Fitout,Architectural,Wet Areas,TEST,TST-FO-001,Wet Area Flood Test,Yes,Project Spec,No leakage after hold period,Before close-up,Contractor + QAQC,Consultant,G4
+P03 Fitout,MEP,Concealed Works,TEST,TST-FO-002,MEP Pre-close Pressure Continuity Tests,Yes,IEC/ASHRAE/NFPA as applicable,Pass per trade criteria,Before closure,MEP Team,QAQC + Consultant,G4
+P04 Snag,All,Snagging,MS,MS-SN-001,Snag Rectification Method Statement,Yes,Project Quality Spec,Approved closure workflow,Before rectification,Main Contractor,QAQC Manager,G3
+P04 Snag,All,Snagging,TEST,TST-SN-001,Reinspection and Closure Verification,Yes,Project Snag Protocol,Critical snag zero and major within threshold,During closure,QAQC + Contractor,Consultant,G4
+P05 T&C,MEP,Commissioning,MS,MS-TC-001,System-wise Commissioning Method Statement,Yes,ASHRAE/CIBSE/NFPA,Approved Cx sequence,Before commissioning,Main Contractor,QAQC Manager,G1
+P05 T&C,MEP,Commissioning,MIR,MIR-TC-001,Test Instrument Calibration Certificates,Yes,ISO 17025 traceability,Valid calibration in date,Before testing,Commissioning Team,QAQC Manager,G1
+P05 T&C,MEP,Commissioning,TEST,TST-TC-001,Integrated System Test IST,Yes,NFPA + Project ER,All cause-effect pass,During commissioning,Commissioning Team,QAQC + Consultant,G4
+P05 T&C,MEP,HVAC,TEST,TST-TC-002,TAB and Functional Performance Test,Yes,ASHRAE + BSRIA/NEBB,Design flow and functional acceptance,During commissioning,Commissioning Team,QAQC + Consultant,G4
+P06 Handover,All,Handover,DOC,HDO-001,Final As-Built O&M Warranty Pack,Yes,Contract + Spec,Completeness target achieved,Before handover,Main Contractor,QAQC Manager,G5
+P06 Handover,All,Handover,TEST,TST-HD-001,Final Demonstration and Training Records,Yes,Contract + Employer Requirements,Witness signoff complete,Before handover,Main Contractor,QAQC + Client,G5

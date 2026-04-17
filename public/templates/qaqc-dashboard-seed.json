@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "name": "QAQC Workphase Submission Seed",
+    "version": "1.0.0",
+    "source": "International PM QAQC baseline",
+    "priority_rule": "Safety/Code > Quality > Schedule > Cost"
+  },
+  "standards": [
+    "ISO 9001",
+    "ISO 10005",
+    "ISO 17025",
+    "ACI",
+    "ASTM",
+    "BS EN",
+    "NFPA",
+    "ASHRAE",
+    "CIBSE",
+    "IEC"
+  ],
+  "agents": [
+    {
+      "id": "A1",
+      "name": "Spec & Submittal Control",
+      "function": "Kontrol",
+      "outputs": ["Spec Review", "Submittal Compliance", "Test Verification", "Acceptance Matrix"]
+    },
+    {
+      "id": "A2",
+      "name": "Document Generation",
+      "function": "Uretim",
+      "outputs": ["QMP", "QCP", "ITP", "Checklists", "Phase Docs"]
+    },
+    {
+      "id": "A3",
+      "name": "Reporting & Performance",
+      "function": "Olcum",
+      "outputs": ["Daily/Weekly Reports", "Subcontractor Scorecard", "KPI Dashboard"]
+    }
+  ],
+  "phases": [
+    {"code": "P01", "name": "Earthwork"},
+    {"code": "P02", "name": "Shell & Core"},
+    {"code": "P03", "name": "Fitout"},
+    {"code": "P04", "name": "Snag/Punch"},
+    {"code": "P05", "name": "Testing & Commissioning"},
+    {"code": "P06", "name": "Handover"}
+  ],
+  "required_templates": [
+    "/templates/master-mir-ms-test-register.csv",
+    "/templates/qaqc-manager-precontrol-checklist.csv",
+    "/templates/main-contractor-submission-requirements.csv"
+  ]
+}

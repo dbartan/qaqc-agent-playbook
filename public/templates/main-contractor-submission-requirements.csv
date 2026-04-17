@@ -1,0 +1,20 @@
+package,required_document,mandatory,stage,remarks
+Method Statement Package,Method Statement,Yes,Pre-Execution,Activity specific and approved before start
+Method Statement Package,Inspection and Test Plan ITP,Yes,Pre-Execution,Must include hold witness review points
+Method Statement Package,Risk Assessment and HSE Controls,Yes,Pre-Execution,Aligned with method statement and quality controls
+Method Statement Package,Inspection Checklists,Yes,Pre-Execution,Pre during post checklists as applicable
+Method Statement Package,Responsibility Matrix,Yes,Pre-Execution,Defines contractor subcontractor QAQC signatories
+Material Approval Package,Material Technical Datasheet,Yes,Pre-Procurement,Manufacturer original data
+Material Approval Package,Compliance Certificates ASTM BS EN UL,Yes,Pre-Procurement,As applicable to product and project spec
+Material Approval Package,Third-party Test Reports,Yes,Pre-Procurement,From approved/accredited labs where required
+Material Approval Package,Manufacturer Installation Guidelines,Yes,Pre-Procurement,Latest revision
+Material Approval Package,Samples Mockups,Conditional,Pre-Installation,Mandatory for architectural critical finishes
+Test Package,Approved Test Plan,Yes,Pre-Test,Aligned with ITP and project specification
+Test Package,Test Forms and Templates,Yes,Pre-Test,Controlled format and revision
+Test Package,Calibration Certificates,Yes,Pre-Test,Valid and traceable
+Test Package,Witness Request Plan,Yes,Pre-Test,Consultant/client witness as required
+Test Package,Acceptance Limit Sheet,Yes,Pre-Test,Numeric acceptance limits only
+Closeout Package,Signed IR and ITR Records,Yes,Post-Execution,Full traceability by area and activity
+Closeout Package,Final Test Reports,Yes,Post-Execution,All required tests completed and accepted
+Closeout Package,NCR CAPA Closure Evidence,Conditional,Post-Execution,Mandatory where NCR exists
+Closeout Package,As-built Markups and Turnover Records,Yes,Pre-Handover,Linked to handover dossier
