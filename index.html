@@ -97,8 +97,8 @@
     <nav>
       <a href="#overview">Overview</a>
       <a href="#infra">Infra Setup</a>
-      <a href="#agent-matrix">Agent Matrix</a>
-      <a href="#phases">Phase Workflow</a>
+      <a href="#agent-matrix">3-Agent Matrix</a>
+      <a href="#phase-agent">Phase x Agent Mapping</a>
       <a href="#submission">Submission Model</a>
       <a href="#aconex">Aconex-Style Flow</a>
       <a href="#publishing">Publishing</a>
@@ -152,83 +152,138 @@
   </section>
 
   <section id="agent-matrix">
-    <h2>2) QAQC Multi-Agent Matrix</h2>
+    <h2>2) QA/QC 3-Agent Matrix (Manager-Orchestrated)</h2>
+    <p class="lead">Model aligned to your structure: <b>Agent 1 (Defense/Kontrol)</b>, <b>Agent 2 (Creation/Üretim)</b>, <b>Agent 3 (Accountability/Ölçüm)</b> under QA/QC Manager final gate authority.</p>
     <table>
       <thead>
         <tr>
           <th>Agent</th>
-          <th>Core Responsibility</th>
-          <th>Primary Inputs</th>
-          <th>Primary Outputs</th>
-          <th>Control Objective</th>
+          <th>İşlev</th>
+          <th>Modules</th>
+          <th>Ana Çıktılar</th>
+          <th>Pillar</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><b>DocuGate</b></td>
-          <td>Document control, submission review, compliance routing</td>
-          <td>Specs, codes, QMP/QCP, ITP, method statements, certificates, shop drawings</td>
-          <td>Approved / Revise & Resubmit / Rejected decisions + comments + revision trail</td>
-          <td>Prevent non-compliant documents from reaching field execution</td>
+          <td><b>Agent 1 - Spec & Submittal Control</b></td>
+          <td>Kontrol</td>
+          <td>Spec lookup, standards, submittal review, pre-con test, post-installation test, acceptance matrix</td>
+          <td>Spec review, submittal compliance, test verification, acceptance matrix</td>
+          <td><b>Defense</b></td>
         </tr>
         <tr>
-          <td><b>FieldFlow</b></td>
-          <td>Installation inspection and test readiness</td>
-          <td>Approved technical docs, ITP logic, tolerance thresholds, embedded-item data</td>
-          <td>Pre/During/Post checklists, hold points, NCRs, reinspection records</td>
-          <td>Ensure first-time-right execution in real site conditions</td>
+          <td><b>Agent 2 - Document Generation</b></td>
+          <td>Üretim</td>
+          <td>QMP, QCP, ITP, checklists, phase records, shop drawing sync</td>
+          <td>QMP, QCP, ITP, checklists, phase docs</td>
+          <td><b>Creation</b></td>
         </tr>
         <tr>
-          <td><b>PhaseSync</b></td>
-          <td>WBS + phase-gate + real-time readiness tracking</td>
-          <td>Program activities, document status, inspection/test closure status</td>
-          <td>Cannot-start flags, readiness score, delay impact alerts</td>
-          <td>Enforce schedule-to-approval alignment</td>
-        </tr>
-        <tr>
-          <td><b>InsightCore</b></td>
-          <td>Executive reporting, red flags, RCA, subcontractor performance</td>
-          <td>Logs from DocuGate + FieldFlow + PhaseSync</td>
-          <td>KPI dashboards, root cause analysis, management summaries</td>
-          <td>Convert QA/QC data into decisions</td>
+          <td><b>Agent 3 - Reporting & Performance</b></td>
+          <td>Ölçüm</td>
+          <td>Quality reports, KPI tracking, subcontractor performance, trend analysis, management logs, outcome metrics</td>
+          <td>Daily/weekly reports, subcontractor scorecard, KPI dashboard</td>
+          <td><b>Accountability</b></td>
         </tr>
       </tbody>
     </table>
   </section>
 
-  <section id="phases">
-    <h2>3) Phase-Based Operating Structure</h2>
-    <p>Project lifecycle aligned to real field sequence:</p>
-    <ol>
-      <li><b>Earthwork</b></li>
-      <li><b>Shell & Core</b></li>
-      <li><b>Fitout</b></li>
-      <li><b>Snag / De-snag</b></li>
-      <li><b>Test & Commissioning</b></li>
-      <li><b>Handover & Closeout</b></li>
-    </ol>
-    <p>Each phase uses the same gate pattern:</p>
-    <p><code>Document Gate -> Field Gate -> Test Gate -> Compliance Gate -> Reporting Gate</code></p>
-    <p class="warn">Rule: No phase/activity release if critical gate criteria are not closed.</p>
+  <section id="phase-agent">
+    <h2>3) Work Phase x Agent Mapping</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Agent 1 (Kontrol)</th>
+          <th>Agent 2 (Üretim)</th>
+          <th>Agent 3 (Ölçüm)</th>
+          <th>Gate Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>P01 Earthwork</b></td>
+          <td>Spec + compaction acceptance verification</td>
+          <td>Earthwork ITP + checklist package</td>
+          <td>Compaction pass rate + weekly trend</td>
+          <td>G1-G5</td>
+        </tr>
+        <tr>
+          <td><b>P02 Shell & Core</b></td>
+          <td>Structural submittal + pre-pour compliance</td>
+          <td>Concrete ITP + hold/witness docs</td>
+          <td>NCR aging + first-time-pass KPI</td>
+          <td>G1-G5</td>
+        </tr>
+        <tr>
+          <td><b>P03 Fitout</b></td>
+          <td>Material/spec acceptance + pre-close checks</td>
+          <td>Room-wise checklists + phase records</td>
+          <td>Snag trend + subcontractor scorecard</td>
+          <td>G1-G5</td>
+        </tr>
+        <tr>
+          <td><b>P04 Snag/Punch</b></td>
+          <td>Technical closure verification</td>
+          <td>Rectification/closure templates</td>
+          <td>Critical-major closure rate</td>
+          <td>G3-G5</td>
+        </tr>
+        <tr>
+          <td><b>P05 Testing & Commissioning</b></td>
+          <td>System acceptance criteria verification</td>
+          <td>T&C plans + test forms</td>
+          <td>System readiness + retest KPI</td>
+          <td>G1-G5</td>
+        </tr>
+        <tr>
+          <td><b>P06 Handover</b></td>
+          <td>Final compliance + acceptance validation</td>
+          <td>Handover dossier compilation</td>
+          <td>Final quality outcome report</td>
+          <td>G1-G5</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="warn">Rule: QA/QC Manager approval is mandatory at gate transitions. Priority: Safety/Code > Quality > Schedule > Cost.</p>
   </section>
 
   <section id="submission">
-    <h2>4) Submission List and Control Schema</h2>
-    <p>Submission register must include mandatory fields for auditability and real-time traceability:</p>
-    <ul>
-      <li>Submission ID, Phase, WBS Code, Area/Zone, Discipline</li>
-      <li>Document Type (Material / Method Statement / ITP / Test Certificate / Shop Drawing)</li>
-      <li>Spec Ref / Code Ref / Revision</li>
-      <li>Planned Submit Date / Required Approval Date</li>
-      <li>Status + Reviewer Route + Consolidated Comments</li>
-      <li>Linked Inspection Template + Linked Activity ID</li>
-      <li>Final Disposition + Effective Release Tag</li>
-    </ul>
-    <p>Revision governance: latest approved revision controls field release; superseded revisions are locked from use.</p>
+    <h2>4) Submission List (Dashboard-Ready)</h2>
+    <p>Agent-based minimum submission structure for your matrix:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Submission Set</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Agent 1 - Spec & Submittal Control</b></td>
+          <td>Spec Review Log, Submittal Compliance Register, MIR/IR/TR review records, Acceptance Matrix, NCR disposition</td>
+          <td>Technical compliance defense before site release</td>
+        </tr>
+        <tr>
+          <td><b>Agent 2 - Document Generation</b></td>
+          <td>QMP, QCP, ITP, Trade/Phase Checklists, Phase QA/QC dossier, Shop drawing sync list</td>
+          <td>Controlled creation of required QA/QC packages</td>
+        </tr>
+        <tr>
+          <td><b>Agent 3 - Reporting & Performance</b></td>
+          <td>Daily report, Weekly report, KPI dashboard pack, Subcontractor scorecard, Trend analysis, Management log</td>
+          <td>Performance visibility and management decisions</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Mandatory register fields: Submission ID, Phase, Discipline, Doc Type, Rev, Status, Planned Date, Submitted Date, SLA, Owner, Linked IR/Test, Linked NCR, Gate Tag (G1-G5).</p>
   </section>
 
   <section id="aconex">
-    <h2>5) Oracle Aconex-Style Workflow Logic</h2>
+    <h2>5) QA/QC Manager Approval Flow (Aconex-Style)</h2>
     <ol>
       <li>Contractor submits package</li>
       <li>Auto-classification by phase/discipline/spec/WBS</li>
