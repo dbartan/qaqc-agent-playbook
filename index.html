@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QAQC Agent Operating System - Session Documentation</title>
+  <title>QAQC Agent System — Multi-Agent Construction Quality Control Engine</title>
   <style>
     :root {
       --bg: #0b1020;
@@ -13,6 +13,7 @@
       --accent: #6ea8fe;
       --ok: #46d39a;
       --warn: #ffca6b;
+      --danger: #f87171;
       --border: #243154;
     }
     * { box-sizing: border-box; }
@@ -27,307 +28,763 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(11,16,32,.92);
+      background: rgba(11,16,32,.95);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(8px);
     }
-    .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     .topbar { display: flex; gap: 18px; align-items: center; justify-content: space-between; padding: 12px 0; }
-    .brand { font-weight: 700; letter-spacing: .2px; }
+    .brand { font-weight: 700; letter-spacing: .2px; font-size: 16px; }
     nav a {
       color: var(--muted);
       text-decoration: none;
       margin-left: 14px;
-      font-size: 14px;
+      font-size: 13px;
+      white-space: nowrap;
     }
     nav a:hover { color: var(--accent); }
-    main { padding: 28px 0 70px; }
-    h1 { font-size: 34px; line-height: 1.2; margin: 10px 0 8px; }
-    h2 { margin-top: 34px; border-top: 1px solid var(--border); padding-top: 24px; }
-    h3 { margin-top: 18px; }
+    main { padding: 32px 0 80px; }
+    h1 { font-size: 36px; line-height: 1.2; margin: 10px 0 8px; }
+    h2 { margin-top: 40px; border-top: 1px solid var(--border); padding-top: 28px; font-size: 26px; }
+    h3 { margin-top: 20px; font-size: 18px; }
+    h4 { margin-top: 16px; font-size: 15px; color: var(--accent); }
     p, li { color: #dbe5ff; }
-    .lead { color: var(--muted); max-width: 900px; }
+    .lead { color: var(--muted); max-width: 900px; font-size: 16px; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
     }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 14px;
+      padding: 18px;
     }
-    .pill { display:inline-block; border:1px solid var(--border); border-radius:999px; padding:2px 9px; color:var(--muted); font-size:12px; margin-right:6px; }
+    .card h3 { margin-top: 0; }
+    .pill { display:inline-block; border:1px solid var(--border); border-radius:999px; padding:3px 10px; color:var(--muted); font-size:12px; margin-right:6px; margin-bottom:4px; }
+    .pill-accent { border-color: var(--accent); color: var(--accent); }
+    .pill-ok { border-color: var(--ok); color: var(--ok); }
+    .pill-warn { border-color: var(--warn); color: var(--warn); }
+    .pill-danger { border-color: var(--danger); color: var(--danger); }
     code {
       background: #0d152c;
       border: 1px solid var(--border);
       color: #cfe1ff;
       border-radius: 6px;
       padding: 2px 6px;
+      font-size: 13px;
     }
+    pre {
+      background: #0d152c;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    pre code { background: none; border: none; padding: 0; }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0;
+      margin: 14px 0;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
+      font-size: 14px;
     }
     th, td {
       border-bottom: 1px solid var(--border);
-      padding: 10px;
+      padding: 10px 12px;
       text-align: left;
       vertical-align: top;
-      font-size: 14px;
     }
-    th { color: #cfe1ff; background: #101a34; }
+    th { color: #cfe1ff; background: #101a34; font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
     .ok { color: var(--ok); font-weight: 600; }
     .warn { color: var(--warn); font-weight: 600; }
+    .danger { color: var(--danger); font-weight: 600; }
     .muted { color: var(--muted); }
-    footer { margin-top: 34px; color: var(--muted); font-size: 13px; }
+    .hero {
+      background: linear-gradient(135deg, #101a34 0%, #1a2744 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 16px;
+    }
+    .hero h1 { margin-top: 0; }
+    .arch-diagram {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cfe1ff;
+      background: #0d152c;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .tree {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #cfe1ff;
+      background: #0d152c;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .tree .folder { color: var(--accent); }
+    .tree .file { color: var(--muted); }
+    .tree .label { color: var(--text); }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-l1 { background: #1e3a5f; color: #6ea8fe; }
+    .badge-l2 { background: #1a2e4a; color: #93a0c0; }
+    .badge-l0 { background: #2d1f4e; color: #c084fc; }
+    .rule-card {
+      border-left: 3px solid var(--accent);
+      padding-left: 14px;
+      margin: 8px 0;
+    }
+    .rule-card .rule-id { color: var(--accent); font-weight: 700; font-size: 13px; }
+    .rule-card .rule-name { font-weight: 600; }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+    footer { margin-top: 48px; color: var(--muted); font-size: 13px; padding: 20px 0; border-top: 1px solid var(--border); }
+    .links a { color: var(--accent); text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .topbar { flex-direction: column; align-items: flex-start; }
+      nav { display: flex; flex-wrap: wrap; gap: 8px; }
+      nav a { margin-left: 0; }
+      h1 { font-size: 28px; }
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 <header>
   <div class="container topbar">
-    <div class="brand">QAQC Agent OS - Session Document</div>
+    <div class="brand">QAQC Agent System v2.0</div>
     <nav>
       <a href="#overview">Overview</a>
-      <a href="#infra">Infra Setup</a>
-      <a href="#agent-matrix">3-Agent Matrix</a>
-      <a href="#phase-agent">Phase x Agent Mapping</a>
-      <a href="#submission">Submission Model</a>
-      <a href="#aconex">Aconex-Style Flow</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#agents">Agents</a>
+      <a href="#rules">15 Rules</a>
+      <a href="#structure">Folder Structure</a>
+      <a href="#workflows">Workflows</a>
+      <a href="#policies">Policies</a>
+      <a href="#data-model">Data Model</a>
+      <a href="#quality-tiers">Quality Tiers</a>
       <a href="#templates">Templates</a>
-      <a href="#publishing">Publishing</a>
-      <a href="session-merged.html">Merged Diagram Doc</a>
+      <a href="#github">GitHub</a>
     </nav>
   </div>
 </header>
 
 <main class="container">
+
+  <!-- OVERVIEW -->
   <section id="overview">
-    <h1>Full Session Documentation (English)</h1>
-    <p class="lead">
-      This document captures the complete working outcomes of this session: Hermes memory/backend setup, search provider activation,
-      GitHub integration, and the construction QA/QC multi-agent operating model designed for luxury hotel, residence, and villa projects.
-    </p>
-    <div>
-      <span class="pill">Domain: Construction QA/QC</span>
-      <span class="pill">Style: Oracle Aconex-like Workflow</span>
-      <span class="pill">Scope: End-to-End Document + Field + Reporting</span>
+    <div class="hero">
+      <div>
+        <span class="pill pill-accent">Multi-Agent Engine</span>
+        <span class="pill pill-ok">Luxury Hospitality</span>
+        <span class="pill pill-warn">Field-Encoded</span>
+      </div>
+      <h1>QAQC Agent System — Multi-Agent Construction Quality Control Engine</h1>
+      <p class="lead">
+        This system encodes 20+ years of real construction QAQC practice into a structured, AI-driven multi-agent framework.
+        It is not a chatbot. It is a <b>decision + validation engine</b> for luxury hospitality construction projects
+        (5-star hotel, branded residence, villa).
+      </p>
+      <div style="margin-top:16px;">
+        <span class="pill">Version 1.0</span>
+        <span class="pill">L0/L1/L2 Agent Hierarchy</span>
+        <span class="pill">Human-in-the-Loop</span>
+        <span class="pill">Conflict Resolution</span>
+        <span class="pill">15 Master Rules</span>
+      </div>
     </div>
   </section>
 
-  <section id="infra">
-    <h2>1) Session Infrastructure and Tooling Setup</h2>
+  <!-- WHAT IT DOES -->
+  <section id="capabilities">
+    <h2>What This System Does</h2>
+    <div class="grid grid-4">
+      <div class="card">
+        <h3>Submission Control</h3>
+        <p class="muted">Contractor submission control (MAR, MS, ITP, Shop Drawing, test reports) with completeness gate + technical review.</p>
+      </div>
+      <div class="card">
+        <h3>Spec Compliance</h3>
+        <p class="muted">Clause-by-clause compliance checking against project specifications, QMP, brand standards, and international standards.</p>
+      </div>
+      <div class="card">
+        <h3>Document Generation</h3>
+        <p class="muted">Auto-generation of ITP, QCP, MS, NCR, Inspection Checklists — project-specific, site-ready, not generic.</p>
+      </div>
+      <div class="card">
+        <h3>Inspection Management</h3>
+        <p class="muted">Pre/in-process/post/final inspections with hold points, witness points, and mandatory sign-off gates.</p>
+      </div>
+      <div class="card">
+        <h3>NCR Lifecycle</h3>
+        <p class="muted">Non-conformance management: raise → classify severity → corrective action → verification → close.</p>
+      </div>
+      <div class="card">
+        <h3>Schedule Tracking</h3>
+        <p class="muted">Submittal due dates, overdue flags, lead time calculation, and critical path impact assessment.</p>
+      </div>
+      <div class="card">
+        <h3>KPI & Reporting</h3>
+        <p class="muted">Weekly QA reports, contractor scorecard, NCR trend analysis, risk heatmap by phase/trade.</p>
+      </div>
+      <div class="card">
+        <h3>Conflict Resolution</h3>
+        <p class="muted">Agent disagreement detection → hold decision → escalation matrix → human QA Lead resolution.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture">
+    <h2>System Architecture</h2>
+    <div class="arch-diagram">
+INPUT (Submittal / Site Issue / New Work Item)
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│     ORCHESTRATOR AGENT (L0 — Brain)     │
+│  Phase Detection → WBS Mapping          │
+│  Agent Routing → Conflict Check         │
+│  Human Gate Rules → Final Decision      │
+└─────────────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│      L1 SPECIALIST AGENTS               │
+│  (parallel or sequential execution)     │
+│                                         │
+│  01 ── Spec Compliance Agent            │
+│  02 ── Submittal Review Agent           │
+│  03 ── Document Generator Agent         │
+│  04 ── Site Inspection Agent            │
+│  05 ── NCR & Risk Agent                 │
+│  06 ── Schedule Agent                   │
+│  07 ── Reporting Agent                  │
+└─────────────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│     HUMAN-IN-THE-LOOP GATE              │
+│  (where required — see approval matrix) │
+└─────────────────────────────────────────┘
+         │
+         ▼
+  STRUCTURED OUTPUT + REGISTER UPDATE
+    </div>
+
+    <h3>Agent Hierarchy</h3>
+    <div class="tree">
+<span class="folder">ORCHESTRATOR</span> <span class="badge badge-l0">L0 — Brain</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">L1 CORE AGENTS</span>
+<span class="label">│   ├── </span><span class="file">Spec Compliance Agent</span>
+<span class="label">│   ├── </span><span class="file">Submittal Review Agent</span>
+<span class="label">│   ├── </span><span class="file">Document Generator Agent</span>
+<span class="label">│   ├── </span><span class="file">Site Inspection Agent</span>
+<span class="label">│   ├── </span><span class="file">NCR & Risk Agent</span>
+<span class="label">│   ├── </span><span class="file">Schedule Agent</span>
+<span class="label">│   └── </span><span class="file">Reporting Agent</span>
+<span class="label">│</span>
+<span class="label">└── </span><span class="folder">L2 SUPPORT AGENTS</span> <span class="badge badge-l2">Support</span>
+<span class="label">    ├── </span><span class="file">Spec Parser Agent</span>
+<span class="label">    └── </span><span class="file">Installation Checklist Agent</span>
+    </div>
+  </section>
+
+  <!-- AGENTS -->
+  <section id="agents">
+    <h2>Agent Definitions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Role</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-l0">L0</span> <b>Orchestrator</b></td>
+          <td>System Brain — routing & governance</td>
+          <td>All inputs (submittals, issues, queries)</td>
+          <td>Final decision + escalation</td>
+          <td>Routing, conflict flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>01 — Spec Compliance</b></td>
+          <td>Specification Validator</td>
+          <td>Submission + Spec Index + Standards</td>
+          <td>Compliance matrix, deviation list, risk flag</td>
+          <td>COMPLIANT / NON-COMPLIANT / INCOMPLETE</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>02 — Submittal Review</b></td>
+          <td>Technical Reviewer</td>
+          <td>MAR / MS / ITP / Shop Drawing</td>
+          <td>Approval status, technical comments</td>
+          <td>A / B / C / D</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>03 — Document Generator</b></td>
+          <td>QAQC Document Producer</td>
+          <td>Work item + Spec section + Template</td>
+          <td>MS / ITP / QCP / MAR / MIR / Checklist</td>
+          <td>DRAFT only</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>04 — Site Inspection</b></td>
+          <td>Field QAQC Validator</td>
+          <td>Work item + ITP + Site observation</td>
+          <td>Inspection record, hold point status, punch list</td>
+          <td>PASS / FAIL / CONDITIONAL</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>05 — NCR & Risk</b></td>
+          <td>Non-Conformance + Risk Manager</td>
+          <td>Deviation / non-compliance / site failure</td>
+          <td>NCR document, severity, corrective action</td>
+          <td>MINOR / MAJOR / CRITICAL</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>06 — Schedule</b></td>
+          <td>Submittal & Inspection Tracker</td>
+          <td>Submittal register + execution program</td>
+          <td>Overdue report, delay assessment</td>
+          <td>Alert only</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l1">L1</span> <b>07 — Reporting</b></td>
+          <td>KPI + Analytics</td>
+          <td>All registers (submittal, NCR, inspection, test)</td>
+          <td>Weekly QA report, scorecard, risk dashboard</td>
+          <td>Report only</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l2">L2</span> <b>Spec Parser</b></td>
+          <td>Specification Pre-Processor</td>
+          <td>Raw spec PDF / document</td>
+          <td>Structured markdown (parsed spec clauses)</td>
+          <td>Requires human validation</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-l2">L2</span> <b>Install Checklist</b></td>
+          <td>Trade-Specific Checklist Generator</td>
+          <td>Trade / work type</td>
+          <td>Pre/during/post-installation checklist</td>
+          <td>Checklist only</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 15 MASTER RULES -->
+  <section id="rules">
+    <h2>15 Master Rules (Absolute)</h2>
+    <p class="lead">These rules are absolute. No agent can override them. Defined in <code>RULES.md</code>.</p>
     <div class="grid">
       <div class="card">
-        <h3>Hermes Memory Backend</h3>
-        <ul>
-          <li>Memory provider switched from built-in only to <code>hindsight</code>.</li>
-          <li>Configured endpoint: <code>https://api.hindsight.vectorize.io</code>.</li>
-          <li>Status validated as <span class="ok">available</span>.</li>
-        </ul>
+        <div class="rule-card">
+          <span class="rule-id">R-01</span> <span class="rule-name">No Assumption</span>
+          <p class="muted">Missing info = INCOMPLETE flag. Never fill gaps with assumptions.</p>
+        </div>
       </div>
       <div class="card">
-        <h3>Search Providers</h3>
-        <ul>
-          <li>Exa API key configured and validated.</li>
-          <li>Tavily API key configured and validated.</li>
-          <li>Construction-spec research tests executed successfully.</li>
-        </ul>
+        <div class="rule-card">
+          <span class="rule-id">R-02</span> <span class="rule-name">Clause Reference</span>
+          <p class="muted">Every compliance decision must cite a specific spec clause or standard.</p>
+        </div>
       </div>
       <div class="card">
-        <h3>GitHub Integration</h3>
-        <ul>
-          <li>Git credentials configured for GitHub access.</li>
-          <li>GitHub account connectivity validated (<code>dbartan</code>).</li>
-          <li>Global Git email set to preferred value.</li>
-        </ul>
+        <div class="rule-card">
+          <span class="rule-id">R-03</span> <span class="rule-name">Sequence</span>
+          <p class="muted">No work without approved MAR + MS + ITP. Flag if missing.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-04</span> <span class="rule-name">Hold Point</span>
+          <p class="muted">Hold Points are absolute. Agent cannot clear — human sign-off mandatory.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-05</span> <span class="rule-name">Test Failure</span>
+          <p class="muted">Failed test = immediate NCR. Work suspended until NCR closed.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-06</span> <span class="rule-name">Conflict</span>
+          <p class="muted">Conflicting agents = HOLD all output + escalate to Human QA Lead.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-07</span> <span class="rule-name">Resubmission</span>
+          <p class="muted">Must address all previous comments. Without response = return without review.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-08</span> <span class="rule-name">Critical NCR</span>
+          <p class="muted">Immediate escalation to QAQC Manager. Stop work. Root cause + corrective action required.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-09</span> <span class="rule-name">Traceability</span>
+          <p class="muted">Every output carries: ID, phase, spec ref, drawing ref, date, status.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-10</span> <span class="rule-name">Draft</span>
+          <p class="muted">Agent docs = DRAFT. Not valid for execution until human approved.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-11</span> <span class="rule-name">Mockup (Luxury)</span>
+          <p class="muted">No mass production without workshop sample + site mockup + all sign-offs.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-12</span> <span class="rule-name">Material On Site</span>
+          <p class="muted">No install without approved MAR + MIR + storage condition check.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-13</span> <span class="rule-name">Overdue Submittal</span>
+          <p class="muted">7d: flag. 14d: escalate to PM. 21d: contractual notice trigger.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-14</span> <span class="rule-name">Standard Hierarchy</span>
+          <p class="muted">Stricter requirement always applies. Spec or standard — whichever is more stringent.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="rule-card">
+          <span class="rule-id">R-15</span> <span class="rule-name">Learning Capture</span>
+          <p class="muted">Save best docs + lessons learned after phase handover for future reuse.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="agent-matrix">
-    <h2>2) QA/QC 3-Agent Matrix (Manager-Orchestrated)</h2>
-    <p class="lead">Model aligned to your structure: <b>Agent 1 (Defense/Kontrol)</b>, <b>Agent 2 (Creation/Üretim)</b>, <b>Agent 3 (Accountability/Ölçüm)</b> under QA/QC Manager final gate authority.</p>
+  <!-- FOLDER STRUCTURE -->
+  <section id="structure">
+    <h2>Complete Folder Structure</h2>
+    <div class="tree">
+<span class="folder">/qaqc-agent-system/</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="file">README.md</span>                    <span class="label label">— System overview + usage guide</span>
+<span class="label">├── </span><span class="file">AGENTS.md</span>                    <span class="label">— Agent registry + map (L0/L1/L2)</span>
+<span class="label">├── </span><span class="file">CONTEXT.md</span>                   <span class="label">— System-wide rules & DNA</span>
+<span class="label">├── </span><span class="file">RULES.md</span>                     <span class="label">— 15 master rules (absolute)</span>
+<span class="label">├── </span><span class="file">WORKFLOWS.md</span>                 <span class="label">— Workflow index + routing logic</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">agents/</span>                      <span class="label">— Agent definitions</span>
+<span class="label">│   ├── </span><span class="file">00_orchestrator.md</span>
+<span class="label">│   ├── </span><span class="file">01_spec_compliance_agent.md</span>
+<span class="label">│   ├── </span><span class="file">02_submittal_review_agent.md</span>
+<span class="label">│   ├── </span><span class="file">03_document_generator_agent.md</span>
+<span class="label">│   ├── </span><span class="file">04_site_inspection_agent.md</span>
+<span class="label">│   ├── </span><span class="file">05_ncr_risk_agent.md</span>
+<span class="label">│   ├── </span><span class="file">06_reporting_agent.md</span>
+<span class="label">│   ├── </span><span class="file">schedule_agent.md</span>
+<span class="label">│   ├── </span><span class="file">spec_parser_agent.md</span>
+<span class="label">│   └── </span><span class="file">installation_checklist_agent.md</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">context/</span>                     <span class="label">— Project context + standards</span>
+<span class="label">│   ├── </span><span class="file">project_context.md</span>
+<span class="label">│   ├── </span><span class="file">phases.md</span>
+<span class="label">│   ├── </span><span class="file">wbs_template.md</span>
+<span class="label">│   ├── </span><span class="file">quality_tier.md</span>          <span class="label">— Luxury tier rules</span>
+<span class="label">│   ├── </span><span class="file">master_standards.md</span>
+<span class="label">│   ├── </span><span class="file">spec_index.md</span>
+<span class="label">│   └── </span><span class="file">schedule_logic.md</span>        <span class="label">— Lead time rules</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">skills/</span>                      <span class="label">— Reusable skill modules</span>
+<span class="label">│   ├── </span><span class="file">review_submittal.md</span>
+<span class="label">│   ├── </span><span class="file">spec_compliance_check.md</span>
+<span class="label">│   ├── </span><span class="file">generate_itp.md</span>
+<span class="label">│   ├── </span><span class="file">generate_ms.md</span>
+<span class="label">│   ├── </span><span class="file">generate_qcp.md</span>
+<span class="label">│   ├── </span><span class="file">generate_ncr.md</span>
+<span class="label">│   ├── </span><span class="file">inspection_checklist.md</span>
+<span class="label">│   ├── </span><span class="file">mockup_approval.md</span>
+<span class="label">│   └── </span><span class="file">reporting_kpi.md</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">workflows/</span>                   <span class="label">— Process flows</span>
+<span class="label">│   ├── </span><span class="file">material_approval_workflow.md</span>  <span class="label">— WF-01</span>
+<span class="label">│   ├── </span><span class="file">conflict_resolution.md</span>          <span class="label">— WF-10</span>
+<span class="label">│   ├── </span><span class="file">mockup_approval_workflow.md</span>     <span class="label">— WF-07</span>
+<span class="label">│   ├── </span><span class="file">schedule_tracking.md</span>            <span class="label">— WF-11</span>
+<span class="label">│   └── </span><span class="file">[... more workflows]</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">policies/</span>                    <span class="label">— Rules, approval matrix</span>
+<span class="label">│   ├── </span><span class="file">approval_matrix.md</span>       <span class="label">— Agent vs human authority</span>
+<span class="label">│   ├── </span><span class="file">severity_matrix.md</span>       <span class="label">— NCR severity classification</span>
+<span class="label">│   ├── </span><span class="file">qa_rules.md</span>
+<span class="label">│   └── </span><span class="file">decision_logic.md</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">data_model/</span>                  <span class="label">— Registers + data structures</span>
+<span class="label">│   ├── </span><span class="file">work_items.md</span>
+<span class="label">│   ├── </span><span class="file">submittal_register.md</span>
+<span class="label">│   ├── </span><span class="file">test_inspection_register.md</span>
+<span class="label">│   ├── </span><span class="file">ncr_register.md</span>
+<span class="label">│   └── </span><span class="file">document_register.md</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">templates/</span>                   <span class="label">— Output document templates</span>
+<span class="label">│   ├── </span><span class="file">itp_template.md</span>
+<span class="label">│   ├── </span><span class="file">ms_template.md</span>
+<span class="label">│   ├── </span><span class="file">qcp_template.md</span>
+<span class="label">│   ├── </span><span class="file">ncr_template.md</span>
+<span class="label">│   ├── </span><span class="file">mar_template.md</span>
+<span class="label">│   ├── </span><span class="file">inspection_checklist_template.md</span>
+<span class="label">│   └── </span><span class="file">submittal_cover_sheet.md</span>
+<span class="label">│</span>
+<span class="label">├── </span><span class="folder">knowledge_base/</span>              <span class="label">— Specs, standards, past projects</span>
+<span class="label">│   ├── </span><span class="folder">specs/parsed/</span>
+<span class="label">│   ├── </span><span class="file">standards_index.md</span>
+<span class="label">│   └── </span><span class="file">past_projects_index.md</span>
+<span class="label">│</span>
+<span class="label">└── </span><span class="folder">data/past_projects/</span>          <span class="label">— Learning layer</span>
+<span class="label">    ├── </span><span class="folder">approved/</span>
+<span class="label">    ├── </span><span class="folder">rejected/</span>
+<span class="label">    └── </span><span class="folder">lessons_learned/</span>
+    </div>
+  </section>
+
+  <!-- WORKFLOWS -->
+  <section id="workflows">
+    <h2>Workflows</h2>
     <table>
       <thead>
-        <tr>
-          <th>Agent</th>
-          <th>İşlev</th>
-          <th>Modules</th>
-          <th>Ana Çıktılar</th>
-          <th>Pillar</th>
-        </tr>
+        <tr><th>ID</th><th>Workflow</th><th>Trigger</th><th>Output</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td><b>Agent 1 - Spec & Submittal Control</b></td>
-          <td>Kontrol</td>
-          <td>Spec lookup, standards, submittal review, pre-con test, post-installation test, acceptance matrix</td>
-          <td>Spec review, submittal compliance, test verification, acceptance matrix</td>
-          <td><b>Defense</b></td>
-        </tr>
-        <tr>
-          <td><b>Agent 2 - Document Generation</b></td>
-          <td>Üretim</td>
-          <td>QMP, QCP, ITP, checklists, phase records, shop drawing sync</td>
-          <td>QMP, QCP, ITP, checklists, phase docs</td>
-          <td><b>Creation</b></td>
-        </tr>
-        <tr>
-          <td><b>Agent 3 - Reporting & Performance</b></td>
-          <td>Ölçüm</td>
-          <td>Quality reports, KPI tracking, subcontractor performance, trend analysis, management logs, outcome metrics</td>
-          <td>Daily/weekly reports, subcontractor scorecard, KPI dashboard</td>
-          <td><b>Accountability</b></td>
-        </tr>
+        <tr><td>WF-01</td><td>Material Approval (MAR)</td><td>Contractor submits MAR</td><td>A/B/C/D/I decision</td></tr>
+        <tr><td>WF-02</td><td>Method Statement Review</td><td>Contractor submits MS</td><td>Technical review + decision</td></tr>
+        <tr><td>WF-03</td><td>Shop Drawing Review</td><td>Contractor submits SD</td><td>Coordination check + decision</td></tr>
+        <tr><td>WF-04</td><td>ITP Generation</td><td>New work item starts</td><td>ITP with H/W/R points</td></tr>
+        <tr><td>WF-05</td><td>Site Inspection</td><td>Inspection request received</td><td>Inspection record + sign-off</td></tr>
+        <tr><td>WF-06</td><td>NCR Lifecycle</td><td>Non-conformance detected</td><td>NCR + corrective action</td></tr>
+        <tr><td>WF-07</td><td>Mockup Approval</td><td>Mockup ready for review</td><td>3-level sign-off (luxury)</td></tr>
+        <tr><td>WF-08</td><td>Test Management</td><td>Test scheduled or report received</td><td>Pass/Fail + NCR trigger</td></tr>
+        <tr><td>WF-09</td><td>Handover / Snagging</td><td>Phase completion</td><td>Handover dossier</td></tr>
+        <tr><td>WF-10</td><td>Conflict Resolution</td><td>Agent disagreement</td><td>Hold + escalation</td></tr>
+        <tr><td>WF-11</td><td>Schedule Tracking</td><td>Daily check / query</td><td>Overdue report + impact</td></tr>
       </tbody>
     </table>
   </section>
 
-  <section id="phase-agent">
-    <h2>3) Work Phase x Agent Mapping</h2>
+  <!-- POLICIES -->
+  <section id="policies">
+    <h2>Approval Authority Matrix</h2>
+    <p class="lead">Defined in <code>policies/approval_matrix.md</code> — governs which decisions agents can make vs. require human sign-off.</p>
     <table>
       <thead>
-        <tr>
-          <th>Phase</th>
-          <th>Agent 1 (Kontrol)</th>
-          <th>Agent 2 (Üretim)</th>
-          <th>Agent 3 (Ölçüm)</th>
-          <th>Gate Focus</th>
-        </tr>
+        <tr><th>Authority Level</th><th>Agent Can Decide?</th><th>Examples</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td><b>P01 Earthwork</b></td>
-          <td>Spec + compaction acceptance verification</td>
-          <td>Earthwork ITP + checklist package</td>
-          <td>Compaction pass rate + weekly trend</td>
-          <td>G1-G5</td>
+          <td><span class="ok">AGENT</span> — Automated</td>
+          <td>Yes, no human needed</td>
+          <td>Completeness check, draft generation, schedule alerts, register updates, conflict detection</td>
         </tr>
         <tr>
-          <td><b>P02 Shell & Core</b></td>
-          <td>Structural submittal + pre-pour compliance</td>
-          <td>Concrete ITP + hold/witness docs</td>
-          <td>NCR aging + first-time-pass KPI</td>
-          <td>G1-G5</td>
+          <td><span class="warn">HUMAN REVIEW</span> — Agent recommends</td>
+          <td>No, human must confirm</td>
+          <td>Final submittal approval/rejection, NCR issuance, conditional approvals</td>
         </tr>
         <tr>
-          <td><b>P03 Fitout</b></td>
-          <td>Material/spec acceptance + pre-close checks</td>
-          <td>Room-wise checklists + phase records</td>
-          <td>Snag trend + subcontractor scorecard</td>
-          <td>G1-G5</td>
-        </tr>
-        <tr>
-          <td><b>P04 Snag/Punch</b></td>
-          <td>Technical closure verification</td>
-          <td>Rectification/closure templates</td>
-          <td>Critical-major closure rate</td>
-          <td>G3-G5</td>
-        </tr>
-        <tr>
-          <td><b>P05 Testing & Commissioning</b></td>
-          <td>System acceptance criteria verification</td>
-          <td>T&C plans + test forms</td>
-          <td>System readiness + retest KPI</td>
-          <td>G1-G5</td>
-        </tr>
-        <tr>
-          <td><b>P06 Handover</b></td>
-          <td>Final compliance + acceptance validation</td>
-          <td>Handover dossier compilation</td>
-          <td>Final quality outcome report</td>
-          <td>G1-G5</td>
+          <td><span class="danger">MANDATORY SIGN-OFF</span> — Human only</td>
+          <td>Agent cannot override</td>
+          <td>Concrete pour permit, structural release, hold point clearance, critical NCR closure, safety decisions</td>
         </tr>
       </tbody>
     </table>
-    <p class="warn">Rule: QA/QC Manager approval is mandatory at gate transitions. Priority: Safety/Code > Quality > Schedule > Cost.</p>
-  </section>
 
-  <section id="submission">
-    <h2>4) Submission List (Dashboard-Ready)</h2>
-    <p>Agent-based minimum submission structure for your matrix:</p>
+    <h3>Escalation Levels</h3>
     <table>
       <thead>
-        <tr>
-          <th>Agent</th>
-          <th>Submission Set</th>
-          <th>Purpose</th>
-        </tr>
+        <tr><th>Level</th><th>Trigger</th><th>Response</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td><b>Agent 1 - Spec & Submittal Control</b></td>
-          <td>Spec Review Log, Submittal Compliance Register, MIR/IR/TR review records, Acceptance Matrix, NCR disposition</td>
-          <td>Technical compliance defense before site release</td>
-        </tr>
-        <tr>
-          <td><b>Agent 2 - Document Generation</b></td>
-          <td>QMP, QCP, ITP, Trade/Phase Checklists, Phase QA/QC dossier, Shop drawing sync list</td>
-          <td>Controlled creation of required QA/QC packages</td>
-        </tr>
-        <tr>
-          <td><b>Agent 3 - Reporting & Performance</b></td>
-          <td>Daily report, Weekly report, KPI dashboard pack, Subcontractor scorecard, Trend analysis, Management log</td>
-          <td>Performance visibility and management decisions</td>
-        </tr>
+        <tr><td>0</td><td>Normal operation</td><td>No escalation</td></tr>
+        <tr><td>1</td><td>Minor conflict or low confidence (&lt;85%)</td><td>Agent re-run or QA Engineer flag</td></tr>
+        <tr><td>2</td><td>Major decision or conflicting agent outputs</td><td>QA Engineer review required</td></tr>
+        <tr><td>3</td><td>Critical/safety issue or Critical NCR</td><td>QAQC Manager sign-off mandatory</td></tr>
       </tbody>
     </table>
-    <p>Mandatory register fields: Submission ID, Phase, Discipline, Doc Type, Rev, Status, Planned Date, Submitted Date, SLA, Owner, Linked IR/Test, Linked NCR, Gate Tag (G1-G5).</p>
   </section>
 
-  <section id="aconex">
-    <h2>5) QA/QC Manager Approval Flow (Aconex-Style)</h2>
-    <ol>
-      <li>Contractor submits package</li>
-      <li>Auto-classification by phase/discipline/spec/WBS</li>
-      <li>Parallel routing: QAQC + Discipline Lead + Consultant</li>
-      <li>Comment consolidation and formal return</li>
-      <li>Resubmission cycle (if required)</li>
-      <li>Final disposition and release control</li>
-      <li>Field checklist auto-trigger from approved docs</li>
-      <li>Inspection/test execution + witness/hold handling</li>
-      <li>NCR and corrective action loop</li>
-      <li>KPI + red-flag + RCA escalation to management</li>
-    </ol>
+  <!-- DATA MODEL -->
+  <section id="data-model">
+    <h2>Data Model — Registers</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Submittal Register</h3>
+        <p class="muted">Tracks all submittals (MAR, MS, ITP, SD, TR) with status codes A/B/C/D/I, dates, overdue flags, and execution impact.</p>
+        <code>data_model/submittal_register.md</code>
+      </div>
+      <div class="card">
+        <h3>NCR Register</h3>
+        <p class="muted">Non-conformance lifecycle: Open → Corrective Action → Re-inspection → Closed. Severity, root cause, escalation tracking.</p>
+        <code>data_model/ncr_register.md</code>
+      </div>
+      <div class="card">
+        <h3>Inspection Register</h3>
+        <p class="muted">All inspections (Pre/In-Process/Post/Final) with H/W/R stage types, results, photo references, NCR linkage.</p>
+        <code>data_model/test_inspection_register.md</code>
+      </div>
+      <div class="card">
+        <h3>Work Items Register</h3>
+        <p class="muted">Master work item list with phase, WBS, trade, spec section, required submittals, mockup status, linked NCRs.</p>
+        <code>data_model/work_items.md</code>
+      </div>
+    </div>
   </section>
 
+  <!-- QUALITY TIERS -->
+  <section id="quality-tiers">
+    <h2>Quality Tiers (Luxury / Hospitality)</h2>
+    <p class="lead">Defined in <code>context/quality_tier.md</code> — sets project-specific quality standards and tolerance thresholds.</p>
+    <table>
+      <thead>
+        <tr><th>Criteria</th><th>Standard</th><th>Premium</th><th>Luxury / Ultra-Luxury</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Wall flatness (2m)</td><td>4mm</td><td>3mm</td><td><b>2mm</b></td></tr>
+        <tr><td>Tile joint deviation</td><td>3mm</td><td>2mm</td><td><b>1.5mm</b></td></tr>
+        <tr><td>Lippage (adjacent tiles)</td><td>1mm</td><td>0.75mm</td><td><b>0.5mm</b></td></tr>
+        <tr><td>Paint — raking light</td><td>Visual only</td><td>Visual + touch</td><td><b>45° light mandatory</b></td></tr>
+        <tr><td>Marble veining match</td><td>Not required</td><td>Similar</td><td><b>Exact per sample board</b></td></tr>
+        <tr><td>Mockup requirement</td><td>Recommended</td><td>Primary finishes</td><td><b>All finishes mandatory</b></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Mockup Approval Hierarchy (Luxury)</h3>
+    <pre><code>Level 1: Material Sample → Consultant approval
+Level 2: Workshop Sample → Consultant + Client approval
+Level 3: Site Mockup     → Brand rep + Consultant + Client review
+Sign-off                 → Mass production release
+
+RULE: No mass production without all three approvals.</code></pre>
+  </section>
+
+  <!-- TEMPLATES -->
   <section id="templates">
-    <h2>6) Downloadable QA/QC Templates (Workphase-Based)</h2>
-    <div class="card">
-      <p>The following files were added for dashboard and field use:</p>
-      <ul>
-        <li><a href="/templates/master-mir-ms-test-register.csv">Master MIR-MS-Test Register (CSV)</a></li>
-        <li><a href="/templates/qaqc-manager-precontrol-checklist.csv">QA/QC Manager Pre-Control Checklist (CSV)</a></li>
-        <li><a href="/templates/main-contractor-submission-requirements.csv">Main Contractor Submission Requirements (CSV)</a></li>
-        <li><a href="/templates/qaqc-dashboard-seed.json">Dashboard Seed JSON</a></li>
-      </ul>
-      <p class="muted">Use these templates to generate QCP/ITP packs and enforce gate approvals (G1-G5) by phase.</p>
+    <h2>Templates (Available)</h2>
+    <div class="grid grid-4">
+      <div class="card">
+        <h3>ITP Template</h3>
+        <p class="muted">Inspection Test Plan with H/W/R/M points, responsibility matrix, acceptance criteria.</p>
+      </div>
+      <div class="card">
+        <h3>MS Template</h3>
+        <p class="muted">Method Statement with scope, materials, equipment, execution sequence, QA controls, safety.</p>
+      </div>
+      <div class="card">
+        <h3>QCP Template</h3>
+        <p class="muted">Quality Control Procedure for work packages with hold points and test requirements.</p>
+      </div>
+      <div class="card">
+        <h3>NCR Template</h3>
+        <p class="muted">Non-Conformance Report with severity, root cause, corrective action, closure verification.</p>
+      </div>
+      <div class="card">
+        <h3>MAR Template</h3>
+        <p class="muted">Material Approval Request with product data, test certs, compliance statement, sample ref.</p>
+      </div>
+      <div class="card">
+        <h3>Inspection Checklist</h3>
+        <p class="muted">Pre-installation, in-process, post-installation, final acceptance checklists.</p>
+      </div>
+      <div class="card">
+        <h3>Submittal Cover Sheet</h3>
+        <p class="muted">Standard cover sheet for all submittal types with metadata fields.</p>
+      </div>
     </div>
   </section>
 
-  <section id="publishing">
-    <h2>7) Publishing Status</h2>
+  <!-- GITHUB -->
+  <section id="github">
+    <h2>Repository & Publishing</h2>
     <div class="card">
-      <ul>
-        <li>Repository: <a href="https://github.com/dbartan/qaqc-agent-playbook">dbartan/qaqc-agent-playbook</a></li>
-        <li>GitHub Pages: <a href="https://dbartan.github.io/qaqc-agent-playbook/">https://dbartan.github.io/qaqc-agent-playbook/</a></li>
-        <li>Current mode: GitHub Pages from <code>main</code> branch root.</li>
-      </ul>
-      <p class="muted">Next optional step: map custom domain (e.g., deryabartan.com) with DNS and CNAME.</p>
+      <div class="links">
+        <p><b>Main System Repo:</b> <a href="https://github.com/dbartan/QAQC-Agent-System---Multi-Agent-Construction-Quality-Control-Engine">dbartan/QAQC-Agent-System</a></p>
+        <p><b>Dashboard / Playbook:</b> <a href="https://github.com/dbartan/qaqc-agent-playbook">dbartan/qaqc-agent-playbook</a></p>
+        <p><b>This Page:</b> <a href="https://dbartan.github.io/qaqc-agent-playbook/">https://dbartan.github.io/qaqc-agent-playbook/</a></p>
+      </div>
+      <p class="muted" style="margin-top:12px;">Complete system structure pushed to main branch. 67 files, 1971 lines added. Includes agents, context, workflows, policies, data model, templates, knowledge base, and rules.</p>
     </div>
+  </section>
+
+  <!-- PHASES -->
+  <section id="phases">
+    <h2>Project Phases</h2>
+    <table>
+      <thead>
+        <tr><th>Code</th><th>Phase</th><th>Key QAQC Focus</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>P1</td><td>Earthworks & Substructure</td><td>Compaction, piling, foundation, waterproofing</td></tr>
+        <tr><td>P2</td><td>Shell & Core</td><td>Structural concrete, rebar, formwork, pre-pour inspections</td></tr>
+        <tr><td>P3</td><td>Façade & Envelope</td><td>Curtain wall, cladding, waterproofing, weathertightness</td></tr>
+        <tr><td>P4</td><td>MEP Rough-In</td><td>First-fix coordination, pressure tests, before casting</td></tr>
+        <tr><td>P5</td><td>Fit-Out (Finishes)</td><td>Mockups, luxury tolerances, surface finishes, protection</td></tr>
+        <tr><td>P6</td><td>Snagging & De-snag</td><td>Defect identification, rectification, re-inspection</td></tr>
+        <tr><td>P7</td><td>Testing & Commissioning</td><td>Systems testing, balancing, performance verification</td></tr>
+        <tr><td>P8</td><td>Handover</td><td>Final compliance, O&M manuals, as-built, client sign-off</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <footer>
-    Session-built document. Focus: construction QA/QC agentization, phase compliance, document governance, and executive control.
+    <p>QAQC Agent System v1.0 — Field-Encoded for Luxury Hospitality Construction</p>
+    <p class="muted">20+ years of construction QAQC practice encoded into AI-driven multi-agent framework.</p>
   </footer>
+
 </main>
 </body>
 </html>
