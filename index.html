@@ -131,21 +131,79 @@
       white-space: pre;
       overflow-x: auto;
     }
-    .tree {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 13px;
-      line-height: 1.7;
-      color: #cfe1ff;
+    /* ===== VISUAL FOLDER EXPLORER ===== */
+    .folder-explorer {
       background: #0d152c;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px 20px;
+      border-radius: 12px;
       margin: 16px 0;
-      overflow-x: auto;
+      overflow: hidden;
     }
-    .tree .folder { color: var(--accent); }
-    .tree .file { color: var(--muted); }
-    .tree .label { color: var(--text); }
+    .folder-explorer-header {
+      background: #101a34;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .folder-explorer-header svg { width: 18px; height: 18px; }
+    .folder-explorer-body { padding: 10px 0; max-height: 620px; overflow-y: auto; }
+    .folder-explorer-body::-webkit-scrollbar { width: 6px; }
+    .folder-explorer-body::-webkit-scrollbar-track { background: transparent; }
+    .folder-explorer-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .fe-item {
+      display: flex;
+      align-items: center;
+      padding: 6px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s;
+      user-select: none;
+      gap: 8px;
+    }
+    .fe-item:hover { background: rgba(110,168,254,0.06); }
+    .fe-item .fe-icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .fe-item .fe-name { color: #cfe1ff; font-weight: 500; }
+    .fe-item .fe-desc { color: var(--muted); font-size: 12px; margin-left: 6px; }
+    .fe-item.folder .fe-name { color: var(--accent); }
+    .fe-item.file .fe-name { color: #93a0c0; }
+    .fe-item .fe-arrow {
+      width: 14px; height: 14px; color: var(--muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .fe-item.folder.open .fe-arrow { transform: rotate(90deg); }
+    .fe-children { display: none; }
+    .fe-children.open { display: block; }
+    .fe-item.root { padding-left: 18px; font-size: 14px; }
+    .fe-item.l1 { padding-left: 42px; }
+    .fe-item.l2 { padding-left: 66px; }
+    .fe-item.l3 { padding-left: 90px; }
+    .fe-badge {
+      display: inline-block; padding: 1px 6px; border-radius: 3px;
+      font-size: 10px; font-weight: 700; margin-left: 8px; text-transform: uppercase;
+    }
+    .fe-badge-filled { background: rgba(70,211,154,0.15); color: var(--ok); }
+    .fe-badge-partial { background: rgba(255,202,107,0.15); color: var(--warn); }
+    .fe-badge-todo { background: rgba(147,160,192,0.12); color: var(--muted); }
+    .fe-stats {
+      background: #101a34;
+      border-top: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .fe-stats span { display: flex; align-items: center; gap: 4px; }
+    .fe-stats .fe-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .fe-stats .fe-dot.green { background: var(--ok); }
+    .fe-stats .fe-dot.yellow { background: var(--warn); }
+    .fe-stats .fe-dot.gray { background: var(--muted); }
     .badge {
       display: inline-block;
       padding: 2px 8px;
@@ -510,88 +568,218 @@ INPUT (Submittal / Site Issue / New Work Item)
   </section>
 
   <!-- FOLDER STRUCTURE -->
-  <section id="structure">
+    <section id="structure">
     <h2>Complete Folder Structure</h2>
-    <div class="tree">
-<span class="folder">/qaqc-agent-system/</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="file">README.md</span>                    <span class="label label">— System overview + usage guide</span>
-<span class="label">├── </span><span class="file">AGENTS.md</span>                    <span class="label">— Agent registry + map (L0/L1/L2)</span>
-<span class="label">├── </span><span class="file">CONTEXT.md</span>                   <span class="label">— System-wide rules & DNA</span>
-<span class="label">├── </span><span class="file">RULES.md</span>                     <span class="label">— 15 master rules (absolute)</span>
-<span class="label">├── </span><span class="file">WORKFLOWS.md</span>                 <span class="label">— Workflow index + routing logic</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">agents/</span>                      <span class="label">— Agent definitions</span>
-<span class="label">│   ├── </span><span class="file">00_orchestrator.md</span>
-<span class="label">│   ├── </span><span class="file">01_spec_compliance_agent.md</span>
-<span class="label">│   ├── </span><span class="file">02_submittal_review_agent.md</span>
-<span class="label">│   ├── </span><span class="file">03_document_generator_agent.md</span>
-<span class="label">│   ├── </span><span class="file">04_site_inspection_agent.md</span>
-<span class="label">│   ├── </span><span class="file">05_ncr_risk_agent.md</span>
-<span class="label">│   ├── </span><span class="file">06_reporting_agent.md</span>
-<span class="label">│   ├── </span><span class="file">schedule_agent.md</span>
-<span class="label">│   ├── </span><span class="file">spec_parser_agent.md</span>
-<span class="label">│   └── </span><span class="file">installation_checklist_agent.md</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">context/</span>                     <span class="label">— Project context + standards</span>
-<span class="label">│   ├── </span><span class="file">project_context.md</span>
-<span class="label">│   ├── </span><span class="file">phases.md</span>
-<span class="label">│   ├── </span><span class="file">wbs_template.md</span>
-<span class="label">│   ├── </span><span class="file">quality_tier.md</span>          <span class="label">— Luxury tier rules</span>
-<span class="label">│   ├── </span><span class="file">master_standards.md</span>
-<span class="label">│   ├── </span><span class="file">spec_index.md</span>
-<span class="label">│   └── </span><span class="file">schedule_logic.md</span>        <span class="label">— Lead time rules</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">skills/</span>                      <span class="label">— Reusable skill modules</span>
-<span class="label">│   ├── </span><span class="file">review_submittal.md</span>
-<span class="label">│   ├── </span><span class="file">spec_compliance_check.md</span>
-<span class="label">│   ├── </span><span class="file">generate_itp.md</span>
-<span class="label">│   ├── </span><span class="file">generate_ms.md</span>
-<span class="label">│   ├── </span><span class="file">generate_qcp.md</span>
-<span class="label">│   ├── </span><span class="file">generate_ncr.md</span>
-<span class="label">│   ├── </span><span class="file">inspection_checklist.md</span>
-<span class="label">│   ├── </span><span class="file">mockup_approval.md</span>
-<span class="label">│   └── </span><span class="file">reporting_kpi.md</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">workflows/</span>                   <span class="label">— Process flows</span>
-<span class="label">│   ├── </span><span class="file">material_approval_workflow.md</span>  <span class="label">— WF-01</span>
-<span class="label">│   ├── </span><span class="file">conflict_resolution.md</span>          <span class="label">— WF-10</span>
-<span class="label">│   ├── </span><span class="file">mockup_approval_workflow.md</span>     <span class="label">— WF-07</span>
-<span class="label">│   ├── </span><span class="file">schedule_tracking.md</span>            <span class="label">— WF-11</span>
-<span class="label">│   └── </span><span class="file">[... more workflows]</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">policies/</span>                    <span class="label">— Rules, approval matrix</span>
-<span class="label">│   ├── </span><span class="file">approval_matrix.md</span>       <span class="label">— Agent vs human authority</span>
-<span class="label">│   ├── </span><span class="file">severity_matrix.md</span>       <span class="label">— NCR severity classification</span>
-<span class="label">│   ├── </span><span class="file">qa_rules.md</span>
-<span class="label">│   └── </span><span class="file">decision_logic.md</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">data_model/</span>                  <span class="label">— Registers + data structures</span>
-<span class="label">│   ├── </span><span class="file">work_items.md</span>
-<span class="label">│   ├── </span><span class="file">submittal_register.md</span>
-<span class="label">│   ├── </span><span class="file">test_inspection_register.md</span>
-<span class="label">│   ├── </span><span class="file">ncr_register.md</span>
-<span class="label">│   └── </span><span class="file">document_register.md</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">templates/</span>                   <span class="label">— Output document templates</span>
-<span class="label">│   ├── </span><span class="file">itp_template.md</span>
-<span class="label">│   ├── </span><span class="file">ms_template.md</span>
-<span class="label">│   ├── </span><span class="file">qcp_template.md</span>
-<span class="label">│   ├── </span><span class="file">ncr_template.md</span>
-<span class="label">│   ├── </span><span class="file">mar_template.md</span>
-<span class="label">│   ├── </span><span class="file">inspection_checklist_template.md</span>
-<span class="label">│   └── </span><span class="file">submittal_cover_sheet.md</span>
-<span class="label">│</span>
-<span class="label">├── </span><span class="folder">knowledge_base/</span>              <span class="label">— Specs, standards, past projects</span>
-<span class="label">│   ├── </span><span class="folder">specs/parsed/</span>
-<span class="label">│   ├── </span><span class="file">standards_index.md</span>
-<span class="label">│   └── </span><span class="file">past_projects_index.md</span>
-<span class="label">│</span>
-<span class="label">└── </span><span class="folder">data/past_projects/</span>          <span class="label">— Learning layer</span>
-<span class="label">    ├── </span><span class="folder">approved/</span>
-<span class="label">    ├── </span><span class="folder">rejected/</span>
-<span class="label">    └── </span><span class="folder">lessons_learned/</span>
+    <div class="folder-explorer">
+      <div class="folder-explorer-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        qaqc-agent-system/ — 67 files, 10 directories
+      </div>
+      <div class="folder-explorer-body">
+        <!-- ROOT FILES -->
+        <div class="fe-item file l1"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">README.md</span><span class="fe-desc">— System overview + usage guide</span></div>
+        <div class="fe-item file l1"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">AGENTS.md</span><span class="fe-desc">— Agent registry + map (L0/L1/L2)</span></div>
+        <div class="fe-item file l1"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">CONTEXT.md</span><span class="fe-desc">— System-wide rules & DNA</span></div>
+        <div class="fe-item file l1"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">RULES.md</span><span class="fe-desc">— 15 master rules (absolute)</span></div>
+        <div class="fe-item file l1"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">WORKFLOWS.md</span><span class="fe-desc">— Workflow index + routing logic</span></div>
+
+        <!-- AGENTS FOLDER -->
+        <div class="fe-item folder l1 open" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">agents/</span>
+          <span class="fe-badge fe-badge-filled">10 files</span>
+        </div>
+        <div class="fe-children open">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">00_orchestrator.md</span><span class="fe-desc">— System brain, routing, conflict</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">01_spec_compliance_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">02_submittal_review_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">03_document_generator_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">04_site_inspection_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">05_ncr_risk_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">06_reporting_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">schedule_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">spec_parser_agent.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">installation_checklist_agent.md</span></div>
+        </div>
+
+        <!-- CONTEXT FOLDER -->
+        <div class="fe-item folder l1 open" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">context/</span>
+          <span class="fe-badge fe-badge-partial">4 filled</span>
+        </div>
+        <div class="fe-children open">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">phases.md</span><span class="fe-desc">— 8-phase structure + gate rules</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">quality_tier.md</span><span class="fe-desc">— Luxury tier rules + tolerances</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">schedule_logic.md</span><span class="fe-desc">— Lead time + escalation rules</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">project_context.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">wbs_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">master_standards.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">spec_index.md</span></div>
+        </div>
+
+        <!-- SKILLS FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">skills/</span>
+          <span class="fe-badge fe-badge-todo">9 placeholders</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">review_submittal.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">spec_compliance_check.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">generate_itp.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">generate_ms.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">generate_qcp.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">generate_ncr.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">inspection_checklist.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">mockup_approval.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">reporting_kpi.md</span></div>
+        </div>
+
+        <!-- WORKFLOWS FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">workflows/</span>
+          <span class="fe-badge fe-badge-partial">5 filled</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">material_approval_workflow.md</span><span class="fe-badge fe-badge-filled">WF-01</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">conflict_resolution.md</span><span class="fe-badge fe-badge-filled">WF-10</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">mockup_approval_workflow.md</span><span class="fe-badge fe-badge-filled">WF-07</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">schedule_tracking.md</span><span class="fe-badge fe-badge-filled">WF-11</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">method_statement_workflow.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">submittal_review_workflow.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">itp_generation_workflow.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">inspection_workflow.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">ncr_workflow.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">test_workflow.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">handover_workflow.md</span></div>
+        </div>
+
+        <!-- POLICIES FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">policies/</span>
+          <span class="fe-badge fe-badge-partial">2 filled</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">approval_matrix.md</span><span class="fe-desc">— Agent vs human authority</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">severity_matrix.md</span><span class="fe-desc">— NCR severity classification</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">qa_rules.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">decision_logic.md</span></div>
+        </div>
+
+        <!-- DATA MODEL FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">data_model/</span>
+          <span class="fe-badge fe-badge-partial">4 filled</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">work_items.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">submittal_register.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">test_inspection_register.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">ncr_register.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">document_register.md</span></div>
+        </div>
+
+        <!-- TEMPLATES FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">templates/</span>
+          <span class="fe-badge fe-badge-todo">7 placeholders</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">itp_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">ms_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">qcp_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">ncr_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">mar_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">inspection_checklist_template.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">submittal_cover_sheet.md</span></div>
+        </div>
+
+        <!-- KNOWLEDGE BASE FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">knowledge_base/</span>
+          <span class="fe-badge fe-badge-todo">placeholders</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item folder l2" onclick="toggleFolder(this)">
+            <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="fe-name">specs/parsed/</span>
+          </div>
+          <div class="fe-children">
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">concrete_03_30_00.md</span></div>
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">finishes_09_00_00.md</span></div>
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">mep_23_00_00.md</span></div>
+          </div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">standards_index.md</span></div>
+          <div class="fe-item file l2"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">past_projects_index.md</span></div>
+        </div>
+
+        <!-- DATA / PAST PROJECTS FOLDER -->
+        <div class="fe-item folder l1" onclick="toggleFolder(this)">
+          <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="fe-name">data/past_projects/</span>
+          <span class="fe-desc">— Learning layer</span>
+        </div>
+        <div class="fe-children">
+          <div class="fe-item folder l2" onclick="toggleFolder(this)">
+            <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="fe-name">approved/</span>
+          </div>
+          <div class="fe-children">
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">itp_concrete_works_v3_APPROVED.md</span></div>
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">ms_marble_installation_APPROVED.md</span></div>
+          </div>
+          <div class="fe-item folder l2" onclick="toggleFolder(this)">
+            <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="fe-name">rejected/</span>
+          </div>
+          <div class="fe-children">
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">ncr_rebar_cover_deviation_CLOSED.md</span></div>
+          </div>
+          <div class="fe-item folder l2" onclick="toggleFolder(this)">
+            <svg class="fe-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg class="fe-icon" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="fe-name">lessons_learned/</span>
+          </div>
+          <div class="fe-children">
+            <div class="fe-item file l3"><svg class="fe-icon" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="fe-name">project_XYZ_lessons.md</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fe-stats">
+        <span><span class="fe-dot green"></span> 20 filled</span>
+        <span><span class="fe-dot yellow"></span> 4 partial</span>
+        <span><span class="fe-dot gray"></span> 43 placeholders</span>
+        <span style="margin-left:auto;">67 files — 10 directories — 1,971 lines</span>
+      </div>
     </div>
+    <script>
+      function toggleFolder(el) {
+        el.classList.toggle('open');
+        const children = el.nextElementSibling;
+        if (children && children.classList.contains('fe-children')) {
+          children.classList.toggle('open');
+        }
+      }
+    </script>
   </section>
 
   <!-- WORKFLOWS -->
@@ -687,14 +875,15 @@ INPUT (Submittal / Site Issue / New Work Item)
 
   <!-- QUALITY TIERS -->
   <section id="quality-tiers">
-    <h2>Quality Tiers (Luxury / Hospitality)</h2>
-    <p class="lead">Defined in <code>context/quality_tier.md</code> — sets project-specific quality standards and tolerance thresholds.</p>
+    <h2>Quality Tiers — Work-Scope Specific Standards</h2>
+    <p class="lead">Defined in <code>context/quality_tier.md</code> — sets project-specific quality standards and tolerance thresholds per work scope and project tier.</p>
+
+    <!-- MASTER TIER TABLE -->
+    <h3>General Acceptance Criteria by Tier</h3>
     <table>
-      <thead>
-        <tr><th>Criteria</th><th>Standard</th><th>Premium</th><th>Luxury / Ultra-Luxury</th></tr>
-      </thead>
+      <thead><tr><th>Criteria</th><th>Standard</th><th>Premium</th><th>Luxury / Ultra-Luxury</th></tr></thead>
       <tbody>
-        <tr><td>Wall flatness (2m)</td><td>4mm</td><td>3mm</td><td><b>2mm</b></td></tr>
+        <tr><td>Wall flatness (2m straight edge)</td><td>4mm</td><td>3mm</td><td><b>2mm</b></td></tr>
         <tr><td>Tile joint deviation</td><td>3mm</td><td>2mm</td><td><b>1.5mm</b></td></tr>
         <tr><td>Lippage (adjacent tiles)</td><td>1mm</td><td>0.75mm</td><td><b>0.5mm</b></td></tr>
         <tr><td>Paint — raking light</td><td>Visual only</td><td>Visual + touch</td><td><b>45° light mandatory</b></td></tr>
@@ -703,13 +892,195 @@ INPUT (Submittal / Site Issue / New Work Item)
       </tbody>
     </table>
 
-    <h3>Mockup Approval Hierarchy (Luxury)</h3>
+    <!-- SCOPE-SPECIFIC QAQC STANDARDS -->
+    <h3>Work Scope — Specific QAQC Acceptance Criteria (Luxury)</h3>
+
+    <!-- Ahşap Cephe & Dış Cephe Doğrama -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🏗️ Ahşap Cephe &amp; Dış Cephe Doğrama</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Timber moisture content (on arrival)</td><td>8–12% (per EN 14081)</td><td>Moisture meter, random sampling (min 5 pcs/batch)</td><td>H1 — Pre-installation</td></tr>
+          <tr><td>Surface finish (visible side)</td><td>No machining marks, sanding scratches visible at 45° raking light</td><td>45° raking light inspection</td><td>W1 — After finishing</td></tr>
+          <tr><td>Joint tightness (butt / finger joints)</td><td>Max gap 0.2mm, no visible adhesive residue</td><td>Feeler gauge + visual</td><td>W1</td></tr>
+          <tr><td>Coating thickness (exterior stain/varnish)</td><td>Per manufacturer spec (typically 80–120μm dry film)</td><td>Elcometer / dry film thickness gauge</td><td>R1 — Test report review</td></tr>
+          <tr><td>Weather seal / gasket continuity</td><td>Continuous, no breaks at corners or joints</td><td>Visual + water spray test (EN 1027)</td><td>H2 — Before close-up</td></tr>
+          <tr><td>UV / weathering resistance documentation</td><td>Accelerated aging test report (min 1000h QUV)</td><td>Document review (MAR submission)</td><td>R1</td></tr>
+          <tr><td>Dimensional tolerance (length / width)</td><td>±1.0mm for lengths ≤ 2000mm; ±1.5mm for &gt; 2000mm</td><td>Calibrated tape / laser measure</td><td>H1</td></tr>
+          <tr><td>Water penetration resistance</td><td>Class E1050 per EN 12208 (or higher per spec)</td><td>Third-party test certificate (accredited lab)</td><td>R1 — Pre-approval</td></tr>
+          <tr><td>Colour consistency (batch to batch)</td><td>Delta E &lt; 1.5 between production batches</td><td>Spectrophotometer vs approved sample</td><td>W1 — First delivery</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- İç Cephe Doğrama & Kapılar -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🚪 İç Cephe Doğrama, Kapılar &amp; Paneller</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Door leaf flatness</td><td>Max deviation 1.5mm over full height (luxury)</td><td>2m straight edge + feeler gauge</td><td>W1 — Pre-hanging</td></tr>
+          <tr><td>Door frame squareness</td><td>Diagonal difference ≤ 2mm</td><td>Diagonal measurement</td><td>H1 — Before fixing</td></tr>
+          <tr><td>Gap tolerances (door to frame)</td><td>2–3mm uniform (top + sides); 8–10mm bottom (clear floor)</td><td>Feeler gauge at 4 points</td><td>W2 — Final adjustment</td></tr>
+          <tr><td>Hardware operation (hinges, locks, closers)</td><td>Smooth operation, no binding, self-closing to correct position</td><td>Functional test (min 10 cycles)</td><td>H2 — Final inspection</td></tr>
+          <tr><td>Edge banding / veneer quality</td><td>No delamination, colour match to sample, no visible glue lines</td><td>Visual at 500mm distance + 45° light</td><td>W1</td></tr>
+          <tr><td>Fire-rated doors (if applicable)</td><td>Certified label intact, intumescent seals continuous, gaps per fire cert</td><td>Visual + fire certificate cross-check</td><td><b>H — Mandatory sign-off</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Islak Hacimler -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🚿 Islak Hacimler (Banyo, Spa, Mutfak, Çamaşır)</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Waterproofing membrane continuity</td><td>100% coverage, min 2 coats, no pinholes, overlaps ≥ 100mm</td><td>Electronic leak detection (spark test) OR 24h flood test</td><td><b>H — Before tile/finish</b></td></tr>
+          <tr><td>Waterproofing upstand height</td><td>Min 150mm above finished floor level (bathroom); 300mm (shower)</td><td>Laser level measurement</td><td>H</td></tr>
+          <tr><td>Floor fall to drain</td><td>1:80 to 1:100 (1.25%–1.5%) — no ponding</td><td>Laser level + water test (pour 5L, check drainage time)</td><td>H2 — Pre-tile</td></tr>
+          <tr><td>Tile adhesive coverage (wet areas)</td><td>Min 95% back coverage (buttering + trowel)</td><td>Lift 1 tile per room (random), check coverage pattern</td><td>W1 — First fix</td></tr>
+          <tr><td>Grout joint uniformity</td><td>Max deviation ±0.5mm from specified width</td><td>Joint width gauge at 10 random points per room</td><td>W2</td></tr>
+          <tr><td>Silicone sealant at perimeter</td><td>Continuous bead, smooth finish, no gaps, tooling uniform</td><td>Visual at 45° raking light — mandatory in wet areas</td><td>W2</td></tr>
+          <tr><td>Shower screen water containment</td><td>No water escape to dry area after 5-min full-flow test</td><td>Water test — run shower at full flow for 5 minutes</td><td><b>H — Final wet area sign-off</b></td></tr>
+          <tr><td>Plasterboard / backer board in wet zones</td><td>Moisture-resistant (green board or cement board), joints taped/sealed</td><td>Visual — board type verification before waterproofing</td><td>H1 — Pre-waterproofing</td></tr>
+          <tr><td>Underfloor heating (wet area floors)</td><td>Pressure test passed (6 bar / 24h), insulation resistance test</td><td>Pressure gauge log + megger test certificate</td><td>H1 — Before screed</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Ahşap Mobilya Paketleri -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🪑 Ahşap Mobilya (Joinery) &amp; Sabit Mobilya Paketleri</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Full-size mockup approval</td><td>Workshop mockup approved by Consultant + Client + Brand Rep</td><td>Sign-off sheet — all parties signed</td><td><b>H — Before production</b></td></tr>
+          <tr><td>Panel thickness tolerance</td><td>±0.3mm from specified (18mm → 17.7–18.3mm)</td><td>Vernier caliper at 3 points per panel</td><td>W1 — Factory check</td></tr>
+          <tr><td>Edge banding adhesion</td><td>No lifting at corners after 24h humidity exposure (65% RH)</td><td>Finger pull test + visual</td><td>W1</td></tr>
+          <tr><td>Drawer operation</td><td>Smooth full-extension, soft-close functional, no racking</td><td>Functional test (min 20 cycles per drawer)</td><td>W2 — On-site</td></tr>
+          <tr><td>Hinge operation &amp; alignment</td><td>Door closes flush, no visible gap variation &gt; 0.5mm</td><td>Visual + feeler gauge at 4 corners</td><td>W2</td></tr>
+          <tr><td>Surface finish (lacquer / veneer)</td><td>No orange peel, runs, scratches, or colour variation</td><td>45° raking light + D65 colour booth if available</td><td>H2 — Pre-delivery</td></tr>
+          <tr><td>Installation level &amp; plumb</td><td>Max 2mm deviation from level/plumb over full run</td><td>Laser level + spirit level</td><td>W2 — Site inspection</td></tr>
+          <tr><td>Joinery to wall interface</td><td>Max 2mm gap, filled with colour-matched silicone/trim</td><td>Visual + feeler gauge</td><td>W2</td></tr>
+          <tr><td>Formaldehyde emission (indoor joinery)</td><td>E1 or E0 class per EN 13986</td><td>Test certificate from manufacturer</td><td>R1 — MAR submission</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Yalıtım (Insulation) -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🔥 Yalıtım — Isı, Ses &amp; Akustik Insulation</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Thermal insulation — R-value / λ-value</td><td>Per approved MAR (e.g. λ ≤ 0.035 W/mK for PIR)</td><td>Certificate from accredited lab (EN 12667)</td><td>R1 — Pre-installation</td></tr>
+          <tr><td>Insulation board fit &amp; continuity</td><td>No gaps between boards, staggered joints, tight to substrate</td><td>Visual — 100% inspection before concealment</td><td>H1 — Before close-up</td></tr>
+          <tr><td>Vapour barrier continuity</td><td>Sealed overlaps (min 150mm), taped seams, no punctures</td><td>Visual + smoke test (if accessible)</td><td>H</td></tr>
+          <tr><td>Acoustic insulation (between floors/walls)</td><td>Per acoustic report spec — resilient bars, mineral wool, no compression</td><td>Visual — thickness verification, no gaps at perimeter</td><td>H1 — Before screed/drywall</td></tr>
+          <tr><td>Pipe / duct insulation</td><td>Full coverage, vapour seal at all penetrations, no exposed spots</td><td>Visual + infrared thermal imaging (post-commissioning)</td><td>W1 — Pre-concealment</td></tr>
+          <tr><td>Fire-rated insulation ( penetrations)</td><td>Intumescent sealant / fire collar at all service penetrations</td><td>Visual — fire stopping checklist per penetration</td><td><b>H — Fire sign-off</b></td></tr>
+          <tr><td>Rock wool density (acoustic partitions)</td><td>Min 60 kg/m³ (per MAR approval)</td><td>Delivery note + label verification</td><td>R1 — Material on site</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Waterproofing -->
+    <div class="card" style="margin-top:16px;">
+      <h3>💧 Waterproofing — Çatı, Teras, Otopark &amp; Temel</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Surface preparation (substrate)</td><td>Clean, dry, no laitance, cracks repaired, primer applied</td><td>Visual + moisture meter (≤ 5% for bituminous systems)</td><td>H1 — Before membrane</td></tr>
+          <tr><td>Membrane overlap &amp; detailing</td><td>Min 100mm side lap, 150mm end lap, fully bonded at edges</td><td>Visual — 100% inspection, peel test at random locations</td><td>H</td></tr>
+          <tr><td>Detailing at penetrations &amp; corners</td><td>Reinforcement strips, pre-formed boots/seals, no exposed edges</td><td>Visual — every penetration documented with photos</td><td>H</td></tr>
+          <tr><td>Water test (roof / terrace / balcony)</td><td>48h flood test — zero leakage to underside</td><td>Water ponding (min 50mm depth) for 48 hours, inspect underside</td><td><b>H — Mandatory sign-off</b></td></tr>
+          <tr><td>Protection screed over membrane</td><td>No damage to membrane during screed placement, separation layer intact</td><td>Visual — pre-screed membrane inspection</td><td>H1 — Before screed</td></tr>
+          <tr><td>Basement waterproofing (tanking)</td><td>Type A / B / C system per BS 8102, joints waterstopped</td><td>Visual — waterstop continuity + system certificate</td><td><b>H — Structural release</b></td></tr>
+          <tr><td>Green roof / planter waterproofing</td><td>Root-resistant membrane (FLL tested), drainage layer installed</td><td>FLL test certificate + visual — drainage layer verification</td><td>H</td></tr>
+          <tr><td>Parking deck waterproofing</td><td>Trafficable coating system, skid resistance per spec</td><td>Pull-off adhesion test + skid resistance test</td><td>H2 — Before traffic</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Yangın Koruma Paketi -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🔴 Yangın Koruma Paketi — Fire Protection System</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Fire-rated partition walls</td><td>Per approved fire test certificate (REI rating per EN 13501-2)</td><td>Wall build-up verification vs certified system — 100% check</td><td><b>H — Pre-close</b></td></tr>
+          <tr><td>Fire-stopping at penetrations</td><td>All MEP penetrations sealed with certified fire-stopping system</td><td>Penetration-by-penetration checklist + photos</td><td><b>H — Mandatory</b></td></tr>
+          <tr><td>Fire door certification</td><td>Certified label intact, FD30/FD60 per schedule, correct ironmongery</td><td>Visual — label, seals, gaps (3–4mm), self-closing test</td><td>H</td></tr>
+          <tr><td>Intumescent paint / coating (structural steel)</td><td>Dry film thickness per fire engineering report (DFT gauge)</td><td>DFT measurement at min 5 locations per member</td><td>H1 — Before concealment</td></tr>
+          <tr><td>Sprinkler system pressure test</td><td>Hydrostatic test at 1.5× working pressure for 2h — zero pressure drop</td><td>Pressure gauge log — witness by QA + Consultant</td><td><b>H — Witness test</b></td></tr>
+          <tr><td>Fire alarm system functional test</td><td>All devices (detectors, MCPs, sounders) respond correctly to panel</td><td>Point-by-point test — 100% device verification</td><td>H — T&C phase</td></tr>
+          <tr><td>Emergency lighting autonomy</td><td>Min 3h battery backup (luxury hotel standard)</td><td>Duration test — cut main power, verify illumination for 3h</td><td>H</td></tr>
+          <tr><td>Fire damper installation (HVAC ducts)</td><td>Correct rating, accessible for inspection, fusible link intact</td><td>Visual — every damper documented</td><td>H — Pre-concealment</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Cam & Cephe -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🪟 Cam, Cephe (Curtain Wall) &amp; Glazing</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Glass unit specification match</td><td>Correct type, thickness, coating, U-value, SHGC per MAR</td><td>Delivery note + label verification + spot thickness check</td><td>H1 — Before installation</td></tr>
+          <tr><td>IGU seal integrity</td><td>No condensation between panes, spacer intact, desiccant active</td><td>Visual + dew point test (if specified)</td><td>R1 — Pre-installation</td></tr>
+          <tr><td>Curtain wall anchorage &amp; fixing</td><td>Anchor torque per structural engineer spec, shim packs documented</td><td>Torque wrench test (random 10% + all critical anchors)</td><td>H</td></tr>
+          <tr><td>Glazing gasket / sealant continuity</td><td>Continuous, no gaps, correctly seated, compatible with frame material</td><td>Visual — 100% perimeter inspection</td><td>W1</td></tr>
+          <tr><td>Water penetration test (site)</td><td>Class E1050 or higher per project spec (EN 1027)</td><td>Site water spray test — 15 min at specified pressure</td><td><b>H — Witness test</b></td></tr>
+          <tr><td>Optical distortion (coated glass)</td><td>No anisotropy / roller wave distortion visible at normal viewing</td><td>Visual — view from 3m distance, 45° angle, natural light</td><td>W2</td></tr>
+          <tr><td>Thermal break continuity (aluminium frames)</td><td>PA66 GF25 polyamide strip intact, no metal-to-metal contact</td><td>Visual — cross-section sample + visual at every joint</td><td>H1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Boya & Duvar Kaplamaları -->
+    <div class="card" style="margin-top:16px;">
+      <h3>🎨 Boya, Duvar Kaplamaları &amp; Yüzey Finişleri</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Surface preparation (before paint)</td><td>Fairing, sanding (P120–P180), dust-free, primer applied</td><td>Visual + hand-touch — no rough spots, no dust</td><td>H1 — Before paint</td></tr>
+          <tr><td>Paint film thickness (DFT)</td><td>Per manufacturer (typically 40–60μm per coat, 2 coats min)</td><td>Elcometer / wet film gauge during application</td><td>R1 — Test report</td></tr>
+          <tr><td>Colour consistency (room to room)</td><td>Delta E &lt; 1.0 between adjacent rooms; batch number recorded</td><td>Spectrophotometer vs approved colour sample</td><td>W1 — First application</td></tr>
+          <tr><td>Finish uniformity — roller/brush marks</td><td>None visible at 45° raking light (luxury mandatory)</td><td>45° raking light inspection — entire wall surface</td><td><b>H — Final visual</b></td></tr>
+          <tr><td>Wallpaper / wall covering</td><td>Pattern match at seams, no bubbles, no visible adhesive, vertical plumb</td><td>Visual at 1m distance + spirit level (plumb check)</td><td>W1</td></tr>
+          <tr><td>Skirting / cornice alignment</td><td>Max 1mm gap at wall interface, mitre joints tight, no filler visible</td><td>Visual + feeler gauge</td><td>W2</td></tr>
+          <tr><td>VOC content (indoor paints)</td><td>Per LEED / BREEAM limits — low-VOC or zero-VOC</td><td>Product data sheet + VOC certificate (MAR)</td><td>R1 — Pre-approval</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MEP (Kısa) -->
+    <div class="card" style="margin-top:16px;">
+      <h3>⚡ MEP — Electrical, Plumbing &amp; HVAC (Key QAQC Points)</h3>
+      <table>
+        <thead><tr><th>Control Point</th><th>Acceptance Criteria</th><th>Test / Inspection Method</th><th>Hold Point</th></tr></thead>
+        <tbody>
+          <tr><td>Conduit / cable tray installation</td><td>Level, supported at specified intervals, no sharp bends, labelled</td><td>Visual — 100% route inspection + support spacing check</td><td>W1 — Before cable pull</td></tr>
+          <tr><td>Insulation resistance (megger test)</td><td>Min 1 MΩ per circuit (LV); per spec for HV</td><td>Megger test — every circuit, logged</td><td><b>H — Pre-energisation</b></td></tr>
+          <tr><td>Plumbing pressure test</td><td>1.5× working pressure for 2h — zero pressure drop</td><td>Pressure gauge log — witness by QA</td><td><b>H — Witness test</b></td></tr>
+          <tr><td>Drainage fall &amp; flow test</td><td>Min 1:100 fall, no ponding, full-flow test — no leaks at joints</td><td>Water test — pour volume per fixture, check drainage</td><td>H</td></tr>
+          <tr><td>HVAC duct leakage test</td><td>Leakage class per SMNA / DW144 (typically Class A for luxury)</td><td>Pressurisation test — light test + pressure decay</td><td>H — Before ceiling close</td></tr>
+          <tr><td>FCU / AHU installation</td><td>Level, vibration isolators, condensate drain tested, access panel accessible</td><td>Visual + condensate pour test + vibration check</td><td>H1 — Before commissioning</td></tr>
+          <tr><td>Earthing / bonding continuity</td><td>Resistance ≤ 1Ω per IEC 60364</td><td>Earth continuity test — every point, logged</td><td><b>H — Pre-energisation</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MOCKUP APPROVAL HIERARCHY -->
+    <h3 style="margin-top:24px;">Mockup Approval Hierarchy (Luxury)</h3>
     <pre><code>Level 1: Material Sample → Consultant approval
 Level 2: Workshop Sample → Consultant + Client approval
 Level 3: Site Mockup     → Brand rep + Consultant + Client review
 Sign-off                 → Mass production release
 
-RULE: No mass production without all three approvals.</code></pre>
+RULE: No mass production without all three approvals.
+Agent holds execution start until mockup sign-off logged.</code></pre>
   </section>
 
   <!-- TEMPLATES -->
